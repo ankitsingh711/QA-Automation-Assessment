@@ -1,0 +1,32 @@
+{
+  "name": "streamhub-qa-automation-assessment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Streamhub QA Automation Assessment (Section A): loan calculator web app + Playwright/Cucumber UI & API automation + SQL",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^1.3.0",
+    "@cucumber/cucumber": "^13.3.0",
+    "@playwright/test": "^1.64.1",
+    "@types/node": "^24.19.2",
+    "dotenv": "^18.0.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3",
+    "zod": "^4.6.7"
+  },
+  "scripts": {
+    "start": "node app/server.js",
+    "test": "cucumber-js",
+    "test:ui": "cucumber-js --profile ui",
+    "test:api": "cucumber-js --profile api",
+    "test:known-issues": "cucumber-js --profile knownIssues",
+    "test:self-healing": "cucumber-js --profile selfHealing",
+    "typecheck": "tsc --noEmit",
+    "heal": "ts-node self-healing/heal.ts",
+    "sql": "ts-node sql/run-queries.ts",
+    "results": "ts-node scripts/record-results.ts"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

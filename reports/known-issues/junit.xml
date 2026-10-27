@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<testsuite name="Cucumber" time="10.243" tests="9" skipped="0" failures="9" errors="0" timestamp="2026-10-27T16:35:08.942Z">
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Invalid payload is rejected with a client error — &lt;payload> - #1.1: Invalid payload is rejected with a client error — no userId" time="1.009">
+    <failure type="ExpectError" message="expected HTTP 400, got 201. Body: {&#xA;  &quot;title&quot;: &quot;Streamhub QA assessment&quot;,&#xA;  &quot;body&quot;: &quot;Boundary testing for POST /posts&quot;,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: 400&#xA;Received: 201"><![CDATA[Error: expected HTTP 400, got 201. Body: {
+  "title": "Streamhub QA assessment",
+  "body": "Boundary testing for POST /posts",
+  "id": 101
+}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with no userId..................................passed
+When I submit the post......................................................passed
+Then the response status should be 400......................................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Invalid payload is rejected with a client error — &lt;payload> - #1.2: Invalid payload is rejected with a client error — no title" time="0.59">
+    <failure type="ExpectError" message="expected HTTP 400, got 201. Body: {&#xA;  &quot;body&quot;: &quot;Boundary testing for POST /posts&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: 400&#xA;Received: 201"><![CDATA[Error: expected HTTP 400, got 201. Body: {
+  "body": "Boundary testing for POST /posts",
+  "userId": 1,
+  "id": 101
+}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with no title...................................passed
+When I submit the post......................................................passed
+Then the response status should be 400......................................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Invalid payload is rejected with a client error — &lt;payload> - #1.3: Invalid payload is rejected with a client error — an empty object" time="0.499">
+    <failure type="ExpectError" message="expected HTTP 400, got 201. Body: {&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: 400&#xA;Received: 201"><![CDATA[Error: expected HTTP 400, got 201. Body: {
+  "id": 101
+}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with an empty object............................passed
+When I submit the post......................................................passed
+Then the response status should be 400......................................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Invalid payload is rejected with a client error — &lt;payload> - #1.4: Invalid payload is rejected with a client error — a non-numeric userId" time="1.221">
+    <failure type="ExpectError" message="expected HTTP 400, got 201. Body: {&#xA;  &quot;title&quot;: &quot;Streamhub QA assessment&quot;,&#xA;  &quot;body&quot;: &quot;Boundary testing for POST /posts&quot;,&#xA;  &quot;userId&quot;: &quot;abc&quot;,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: 400&#xA;Received: 201"><![CDATA[Error: expected HTTP 400, got 201. Body: {
+  "title": "Streamhub QA assessment",
+  "body": "Boundary testing for POST /posts",
+  "userId": "abc",
+  "id": 101
+}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with a non-numeric userId.......................passed
+When I submit the post......................................................passed
+Then the response status should be 400......................................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Invalid payload is rejected with a client error — &lt;payload> - #1.5: Invalid payload is rejected with a client error — a JSON array instead of an object" time="2.042">
+    <failure type="ExpectError" message="expected HTTP 400, got 201. Body: {&#xA;  &quot;0&quot;: 1,&#xA;  &quot;1&quot;: 2,&#xA;  &quot;2&quot;: 3,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: 400&#xA;Received: 201"><![CDATA[Error: expected HTTP 400, got 201. Body: {
+  "0": 1,
+  "1": 2,
+  "2": 3,
+  "id": 101
+}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with a JSON array instead of an object..........passed
+When I submit the post......................................................passed
+Then the response status should be 400......................................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Invalid payload is rejected with a client error — &lt;payload> - #1.6: Invalid payload is rejected with a client error — control characters in the title" time="0.595">
+    <failure type="ExpectError" message="expected HTTP 400, got 201. Body: {&#xA;  &quot;title&quot;: &quot;bad\u0000title\u0007with\u001bcontrols&quot;,&#xA;  &quot;body&quot;: &quot;Boundary testing for POST /posts&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: 400&#xA;Received: 201"><![CDATA[Error: expected HTTP 400, got 201. Body: {
+  "title": "bad\u0000title\u0007with\u001bcontrols",
+  "body": "Boundary testing for POST /posts",
+  "userId": 1,
+  "id": 101
+}
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: 400
+Received: 201
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with control characters in the title............passed
+When I submit the post......................................................passed
+Then the response status should be 400......................................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Oversized title is rejected as too large" time="2.486">
+    <failure type="ExpectError" message="expected one of 400/413/422, got 201. Body: {&#xA;  &quot;title&quot;: &quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)&#xA;&#xA;expect(received).toContain(expected) // indexOf&#xA;&#xA;Expected value: 201&#xA;Received array: [400, 413, 422]"><![CDATA[Error: expected one of 400/413/422, got 201. Body: {
+  "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)
+
+expect(received).toContain(expected) // indexOf
+
+Expected value: 201
+Received array: [400, 413, 422]
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toContain (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:53:102)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with a 1,000,000 character title................passed
+When I submit the post......................................................passed
+Then the response status should be one of 400, 413 or 422...................failed
+And the response should contain a validation error message..................skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Unparseable body returns a client error, not a server crash — &lt;payload> - #1.1: Unparseable body returns a client error, not a server crash — malformed JSON" time="1.274">
+    <failure type="ExpectError" message="server-side failure (HTTP 500): SyntaxError: Expected double-quoted property name in JSON at position 26 (line 1 column 27)&#xA;    at JSON.parse (&lt;anonymous>)&#xA;    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)&#xA;    at /app/node_modules/body-parser/lib/read.js:121:18&#xA;    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)&#xA;    at done (/app/node_modules/body-parser/node_modules/raw… (713 chars)&#xA;&#xA;expect(received).toBeLessThan(expected)&#xA;&#xA;Expected: &lt; 500&#xA;Received:   500"><![CDATA[Error: server-side failure (HTTP 500): SyntaxError: Expected double-quoted property name in JSON at position 26 (line 1 column 27)
+    at JSON.parse (<anonymous>)
+    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+    at /app/node_modules/body-parser/lib/read.js:121:18
+    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+    at done (/app/node_modules/body-parser/node_modules/raw… (713 chars)
+
+expect(received).toBeLessThan(expected)
+
+Expected: < 500
+Received:   500
+    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+    at /app/node_modules/body-parser/lib/read.js:121:18
+    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with malformed JSON.............................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................failed
+And the response status should be 400.......................................skipped
+And the response should not expose internal implementation details..........skipped]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Unparseable body returns a client error, not a server crash — &lt;payload> - #1.2: Unparseable body returns a client error, not a server crash — invalid UTF-8 bytes" time="0.516">
+    <failure type="ExpectError" message="server-side failure (HTTP 500): SyntaxError: Unexpected token '�', &quot;#&quot; is not valid JSON&#xA;    at JSON.parse (&lt;anonymous>)&#xA;    at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)&#xA;    at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)&#xA;    at /app/node_modules/body-parser/lib/read.js:121:18&#xA;    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)&#xA;    at… (766 chars)&#xA;&#xA;expect(received).toBeLessThan(expected)&#xA;&#xA;Expected: &lt; 500&#xA;Received:   500"><![CDATA[Error: server-side failure (HTTP 500): SyntaxError: Unexpected token '�', "#" is not valid JSON
+    at JSON.parse (<anonymous>)
+    at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+    at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+    at /app/node_modules/body-parser/lib/read.js:121:18
+    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+    at… (766 chars)
+
+expect(received).toBeLessThan(expected)
+
+Expected: < 500
+Received:   500
+    at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+    at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+    at /app/node_modules/body-parser/lib/read.js:121:18
+    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+    at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)]]></failure>
+    <system-out><![CDATA[Given I have a post payload with invalid UTF-8 bytes........................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................failed
+And the response status should be 400.......................................skipped
+And the response should not expose internal implementation details..........skipped]]></system-out>
+  </testcase>
+</testsuite>

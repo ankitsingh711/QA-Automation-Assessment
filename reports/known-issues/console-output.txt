@@ -1,0 +1,453 @@
+$ npx cucumber-js --profile knownIssues
+
+
+Feature: POST /posts — boundary and invalid data handling
+
+  @api @posts @known-issue @DEF-001
+  Scenario Outline: Invalid payload is rejected with a client error — no userId # features/api/create-post.feature:69
+    ✔ Given I have a post payload with no userId                                # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: userId omitted (77 bytes)
+          → 201 in 965 ms
+          Response: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                    # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be 400                                    # src/steps/posts-api.steps.ts:46
+          Error: expected HTTP 400, got 201. Body: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: 400
+          Received: 201
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+    ↷ And the response should contain a validation error message                # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-001
+  Scenario Outline: Invalid payload is rejected with a client error — no title # features/api/create-post.feature:70
+    ✔ Given I have a post payload with no title                                # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: title omitted (54 bytes)
+          → 201 in 584 ms
+          Response: {
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                   # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be 400                                   # src/steps/posts-api.steps.ts:46
+          Error: expected HTTP 400, got 201. Body: {
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: 400
+          Received: 201
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+    ↷ And the response should contain a validation error message               # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-001
+  Scenario Outline: Invalid payload is rejected with a client error — an empty object # features/api/create-post.feature:71
+    ✔ Given I have a post payload with an empty object                                # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: No fields at all (2 bytes)
+          → 201 in 493 ms
+          Response: {
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                          # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be 400                                          # src/steps/posts-api.steps.ts:46
+          Error: expected HTTP 400, got 201. Body: {
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: 400
+          Received: 201
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+    ↷ And the response should contain a validation error message                      # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-001
+  Scenario Outline: Invalid payload is rejected with a client error — a non-numeric userId # features/api/create-post.feature:72
+    ✔ Given I have a post payload with a non-numeric userId                                # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: userId as a string (92 bytes)
+          → 201 in 1212 ms
+          Response: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "userId": "abc",
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                               # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be 400                                               # src/steps/posts-api.steps.ts:46
+          Error: expected HTTP 400, got 201. Body: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "userId": "abc",
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: 400
+          Received: 201
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+    ↷ And the response should contain a validation error message                           # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-001
+  Scenario Outline: Invalid payload is rejected with a client error — a JSON array instead of an object # features/api/create-post.feature:73
+    ✔ Given I have a post payload with a JSON array instead of an object                                # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Top-level array body (7 bytes)
+          → 201 in 2021 ms
+          Response: {
+            "0": 1,
+            "1": 2,
+            "2": 3,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                            # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be 400                                                            # src/steps/posts-api.steps.ts:46
+          Error: expected HTTP 400, got 201. Body: {
+            "0": 1,
+            "1": 2,
+            "2": 3,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: 400
+          Received: 201
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+    ↷ And the response should contain a validation error message                                        # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-001
+  Scenario Outline: Invalid payload is rejected with a client error — control characters in the title # features/api/create-post.feature:74
+    ✔ Given I have a post payload with control characters in the title                                # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: NUL, BEL and escape characters (103 bytes)
+          → 201 in 583 ms
+          Response: {
+            "title": "bad\u0000title\u0007with\u001bcontrols",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                          # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be 400                                                          # src/steps/posts-api.steps.ts:46
+          Error: expected HTTP 400, got 201. Body: {
+            "title": "bad\u0000title\u0007with\u001bcontrols",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: 400
+          Received: 201
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+    ↷ And the response should contain a validation error message                                      # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-002
+  Scenario: Oversized title is rejected as too large               # features/api/create-post.feature:77
+    ✔ Given I have a post payload with a 1,000,000 character title # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: ~1 MB title — payload-size boundary (1,000,065 bytes)
+          → 201 in 2469 ms
+          Response: {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)
+
+    ✔ When I submit the post                                       # src/steps/posts-api.steps.ts:31
+    ✘ Then the response status should be one of 400, 413 or 422    # src/steps/posts-api.steps.ts:51
+          Error: expected one of 400/413/422, got 201. Body: {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)
+          
+          expect(received).toContain(expected) // indexOf
+          
+          Expected value: 201
+          Received array: [400, 413, 422]
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toContain (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:53:102)
+    ↷ And the response should contain a validation error message   # src/steps/posts-api.steps.ts:83
+
+  @api @posts @known-issue @DEF-003
+  Scenario Outline: Unparseable body returns a client error, not a server crash — malformed JSON # features/api/create-post.feature:93
+    ✔ Given I have a post payload with malformed JSON                                            # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Truncated JSON document (26 bytes)
+          → 500 in 1262 ms
+          Response: SyntaxError: Expected double-quoted property name in JSON at position 26 (line 1 column 27)
+              at JSON.parse (<anonymous>)
+              at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+              at /app/node_modules/body-parser/lib/read.js:121:18
+              at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+              at done (/app/node_modules/body-parser/node_modules/raw… (713 chars)
+
+    ✔ When I submit the post                                                                     # src/steps/posts-api.steps.ts:31
+    ✘ Then the API should not fail with a server error                                           # src/steps/posts-api.steps.ts:56
+          Error: server-side failure (HTTP 500): SyntaxError: Expected double-quoted property name in JSON at position 26 (line 1 column 27)
+              at JSON.parse (<anonymous>)
+              at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+              at /app/node_modules/body-parser/lib/read.js:121:18
+              at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+              at done (/app/node_modules/body-parser/node_modules/raw… (713 chars)
+          
+          expect(received).toBeLessThan(expected)
+          
+          Expected: < 500
+          Received:   500
+              at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+              at /app/node_modules/body-parser/lib/read.js:121:18
+              at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)
+    ↷ And the response status should be 400                                                      # src/steps/posts-api.steps.ts:46
+    ↷ And the response should not expose internal implementation details                         # src/steps/posts-api.steps.ts:90
+
+  @api @posts @known-issue @DEF-003
+  Scenario Outline: Unparseable body returns a client error, not a server crash — invalid UTF-8 bytes # features/api/create-post.feature:94
+    ✔ Given I have a post payload with invalid UTF-8 bytes                                            # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Byte sequence that is not valid UTF-8 (4 bytes)
+          → 500 in 503 ms
+          Response: SyntaxError: Unexpected token '�', "#" is not valid JSON
+              at JSON.parse (<anonymous>)
+              at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+              at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+              at /app/node_modules/body-parser/lib/read.js:121:18
+              at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+              at… (766 chars)
+
+    ✔ When I submit the post                                                                          # src/steps/posts-api.steps.ts:31
+    ✘ Then the API should not fail with a server error                                                # src/steps/posts-api.steps.ts:56
+          Error: server-side failure (HTTP 500): SyntaxError: Unexpected token '�', "#" is not valid JSON
+              at JSON.parse (<anonymous>)
+              at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+              at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+              at /app/node_modules/body-parser/lib/read.js:121:18
+              at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+              at… (766 chars)
+          
+          expect(received).toBeLessThan(expected)
+          
+          Expected: < 500
+          Received:   500
+              at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+              at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+              at /app/node_modules/body-parser/lib/read.js:121:18
+              at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+              at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+              at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+              at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)
+    ↷ And the response status should be 400                                                           # src/steps/posts-api.steps.ts:46
+    ↷ And the response should not expose internal implementation details                              # src/steps/posts-api.steps.ts:90
+
+Failed scenarios:
+  1) Invalid payload is rejected with a client error — no userId # features/api/create-post.feature:69
+       Then the response status should be 400 # src/steps/posts-api.steps.ts:46
+           Error: expected HTTP 400, got 201. Body: {
+             "title": "Streamhub QA assessment",
+             "body": "Boundary testing for POST /posts",
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: 400
+           Received: 201
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+  2) Invalid payload is rejected with a client error — no title # features/api/create-post.feature:70
+       Then the response status should be 400 # src/steps/posts-api.steps.ts:46
+           Error: expected HTTP 400, got 201. Body: {
+             "body": "Boundary testing for POST /posts",
+             "userId": 1,
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: 400
+           Received: 201
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+  3) Invalid payload is rejected with a client error — an empty object # features/api/create-post.feature:71
+       Then the response status should be 400 # src/steps/posts-api.steps.ts:46
+           Error: expected HTTP 400, got 201. Body: {
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: 400
+           Received: 201
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+  4) Invalid payload is rejected with a client error — a non-numeric userId # features/api/create-post.feature:72
+       Then the response status should be 400 # src/steps/posts-api.steps.ts:46
+           Error: expected HTTP 400, got 201. Body: {
+             "title": "Streamhub QA assessment",
+             "body": "Boundary testing for POST /posts",
+             "userId": "abc",
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: 400
+           Received: 201
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+  5) Invalid payload is rejected with a client error — a JSON array instead of an object # features/api/create-post.feature:73
+       Then the response status should be 400 # src/steps/posts-api.steps.ts:46
+           Error: expected HTTP 400, got 201. Body: {
+             "0": 1,
+             "1": 2,
+             "2": 3,
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: 400
+           Received: 201
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+  6) Invalid payload is rejected with a client error — control characters in the title # features/api/create-post.feature:74
+       Then the response status should be 400 # src/steps/posts-api.steps.ts:46
+           Error: expected HTTP 400, got 201. Body: {
+             "title": "bad\u0000title\u0007with\u001bcontrols",
+             "body": "Boundary testing for POST /posts",
+             "userId": 1,
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: 400
+           Received: 201
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)
+  7) Oversized title is rejected as too large # features/api/create-post.feature:77
+       Then the response status should be one of 400, 413 or 422 # src/steps/posts-api.steps.ts:51
+           Error: expected one of 400/413/422, got 201. Body: {
+             "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)
+           
+           expect(received).toContain(expected) // indexOf
+           
+           Expected value: 201
+           Received array: [400, 413, 422]
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toContain (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:53:102)
+  8) Unparseable body returns a client error, not a server crash — malformed JSON # features/api/create-post.feature:93
+       Then the API should not fail with a server error # src/steps/posts-api.steps.ts:56
+           Error: server-side failure (HTTP 500): SyntaxError: Expected double-quoted property name in JSON at position 26 (line 1 column 27)
+               at JSON.parse (<anonymous>)
+               at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+               at /app/node_modules/body-parser/lib/read.js:121:18
+               at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+               at done (/app/node_modules/body-parser/node_modules/raw… (713 chars)
+           
+           expect(received).toBeLessThan(expected)
+           
+           Expected: < 500
+           Received:   500
+               at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
+               at /app/node_modules/body-parser/lib/read.js:121:18
+               at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)
+  9) Unparseable body returns a client error, not a server crash — invalid UTF-8 bytes # features/api/create-post.feature:94
+       Then the API should not fail with a server error # src/steps/posts-api.steps.ts:56
+           Error: server-side failure (HTTP 500): SyntaxError: Unexpected token '�', "#" is not valid JSON
+               at JSON.parse (<anonymous>)
+               at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+               at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+               at /app/node_modules/body-parser/lib/read.js:121:18
+               at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+               at… (766 chars)
+           
+           expect(received).toBeLessThan(expected)
+           
+           Expected: < 500
+           Received:   500
+               at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)
+               at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)
+               at /app/node_modules/body-parser/lib/read.js:121:18
+               at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)
+               at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)
+               at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)
+               at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)
+
+1 hook (1 passed)
+9 scenarios (9 failed)
+56 steps (36 passed, 11 skipped, 9 failed)
+0m 10.243s (0m 10.209s executing your code)

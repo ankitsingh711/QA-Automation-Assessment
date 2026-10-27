@@ -1,0 +1,19 @@
+--- a/src/pages/legacy/LegacyDashboardPage.ts
++++ b/src/pages/legacy/LegacyDashboardPage.ts
+@@ -73,11 +73,11 @@
+ export class LegacyDashboardPage extends BasePage {
+   protected readonly path = '/';
+ 
+-  get emiValue(): Locator { return this.page.locator(LEGACY_LOCATORS.emiValue.selector); }
+-  get calculateButton(): Locator { return this.page.locator(LEGACY_LOCATORS.calculateButton.selector); }
+-  get totalPaymentValue(): Locator { return this.page.locator(LEGACY_LOCATORS.totalPaymentValue.selector); }
+-  get loanAmountInput(): Locator { return this.page.locator(LEGACY_LOCATORS.loanAmountInput.selector); }
+-  get homeLoanTab(): Locator { return this.page.locator(LEGACY_LOCATORS.homeLoanTab.selector); }
++  get emiValue(): Locator { return this.page.getByTestId('emi-value'); }
++  get calculateButton(): Locator { return this.page.getByRole('button', { name: 'Calculate', exact: true }); }
++  get totalPaymentValue(): Locator { return this.page.getByTestId('total-payment-value'); }
++  get loanAmountInput(): Locator { return this.page.getByRole('spinbutton', { name: 'Loan amount (₹)', exact: true }); }
++  get homeLoanTab(): Locator { return this.page.getByRole('tab', { name: 'Home Loan', exact: true }); }
+ 
+   async readEmiText(): Promise<string> {
+     return (await this.emiValue.textContent({ timeout: LEGACY_TIMEOUT_MS })) ?? '';

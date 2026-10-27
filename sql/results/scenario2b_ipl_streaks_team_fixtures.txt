@@ -1,0 +1,12 @@
+Scenario 2b — streaks over consecutive team fixtures (variant)
+
+┌──────────────┬──────────────┬────────────┬───────────────────┐
+│ player_name  │ streak_start │ streak_end │ matches_in_streak │
+├──────────────┼──────────────┼────────────┼───────────────────┤
+│ Arjun Mehta  │ 2024-03-22   │ 2024-04-01 │ 3                 │
+│ Dev Malhotra │ 2024-03-24   │ 2024-04-12 │ 5                 │
+│ Rohan Iyer   │ 2024-03-27   │ 2024-04-09 │ 3                 │
+│ Arjun Mehta  │ 2024-04-12   │ 2024-04-24 │ 3                 │
+└──────────────┴──────────────┴────────────┴───────────────────┘
+
+PASS — 4 row(s), exactly the rows the seed data was designed to produce

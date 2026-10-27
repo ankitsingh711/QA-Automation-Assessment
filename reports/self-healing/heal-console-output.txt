@@ -1,0 +1,12 @@
+$ npx ts-node self-healing/heal.ts
+
+Self-healing 5 locator(s) with provider: heuristic (offline)
+
+  healed     emiValue           → getByTestId('emi-value')
+  healed     calculateButton    → getByRole('button', { name: 'Calculate', exact: true })
+  healed     totalPaymentValue  → getByTestId('total-payment-value')
+  healed     loanAmountInput    → getByRole('spinbutton', { name: 'Loan amount (₹)', exact: true })
+  healed     homeLoanTab        → getByRole('tab', { name: 'Home Loan', exact: true })
+
+Report: reports/self-healing/healing-report.md
+Patch:  reports/self-healing/LegacyDashboardPage.healed.patch  (review, then: git apply reports/self-healing/LegacyDashboardPage.healed.patch)

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LoanLens · Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">LoanLens</a>
+    <nav aria-label="Primary">
+      <a href="/" aria-current="page">Dashboard</a>
+      <a href="/reports.html">Amortization report</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Loan dashboard</h1>
+    <p class="lede">Pick a loan type, adjust the amount, rate and tenure, and see what you will repay.</p>
+
+    <div class="tabs" role="tablist" aria-label="Loan type">
+      <button type="button" role="tab" id="tab-home" aria-controls="loan-panel" data-loan-type="home" aria-selected="true">Home Loan</button>
+      <button type="button" role="tab" id="tab-personal" aria-controls="loan-panel" data-loan-type="personal" aria-selected="false" tabindex="-1">Personal Loan</button>
+      <button type="button" role="tab" id="tab-car" aria-controls="loan-panel" data-loan-type="car" aria-selected="false" tabindex="-1">Car Loan</button>
+    </div>
+
+    <section id="loan-panel" class="panel" role="tabpanel" aria-labelledby="tab-home">
+      <div class="layout">
+        <form id="loan-form" class="card" novalidate aria-label="Loan details">
+          <div class="field">
+            <label for="amount" id="amount-label">Loan amount (₹)</label>
+            <input type="number" id="amount" name="amount" inputmode="numeric" aria-describedby="amount-hint">
+            <input type="range" id="amount-range" aria-label="Loan amount slider" tabindex="-1">
+            <small id="amount-hint" class="hint"></small>
+          </div>
+          <div class="field">
+            <label for="rate">Interest rate (% p.a.)</label>
+            <input type="number" id="rate" name="rate" inputmode="decimal" aria-describedby="rate-hint">
+            <input type="range" id="rate-range" aria-label="Interest rate slider" tabindex="-1">
+            <small id="rate-hint" class="hint"></small>
+          </div>
+          <div class="field">
+            <label for="tenure">Loan tenure (years)</label>
+            <input type="number" id="tenure" name="tenure" inputmode="numeric" aria-describedby="tenure-hint">
+            <input type="range" id="tenure-range" aria-label="Loan tenure slider" tabindex="-1">
+            <small id="tenure-hint" class="hint"></small>
+          </div>
+          <p id="form-error" class="form-error" role="alert"></p>
+          <button type="submit" class="button">Calculate</button>
+        </form>
+
+        <div class="results">
+          <section class="summary" aria-labelledby="summary-heading">
+            <h2 id="summary-heading">Summary</h2>
+            <div class="summary-cards">
+              <article class="stat" aria-labelledby="emi-label">
+                <h3 id="emi-label">Monthly EMI</h3>
+                <p class="stat-value" data-testid="emi-value" aria-live="polite">—</p>
+              </article>
+              <article class="stat" aria-labelledby="interest-label">
+                <h3 id="interest-label">Total interest</h3>
+                <p class="stat-value" data-testid="total-interest-value">—</p>
+              </article>
+              <article class="stat" aria-labelledby="payment-label">
+                <h3 id="payment-label">Total payment</h3>
+                <p class="stat-value" data-testid="total-payment-value">—</p>
+                <p class="stat-note">Principal + interest</p>
+              </article>
+            </div>
+          </section>
+
+          <section class="card breakdown" aria-labelledby="breakdown-heading">
+            <h2 id="breakdown-heading">Payment breakdown</h2>
+            <div class="breakdown-body">
+              <figure class="donut-figure">
+                <svg id="breakdown-chart" class="donut" viewBox="0 0 200 200" role="img" aria-labelledby="breakdown-chart-title">
+                  <title id="breakdown-chart-title">Principal vs interest pie chart</title>
+                </svg>
+                <p class="empty-state" data-testid="chart-empty" hidden>Enter valid loan details to see the breakdown.</p>
+              </figure>
+              <ul class="legend" aria-label="Payment breakdown legend">
+                <li data-testid="legend-principal"><span class="swatch swatch--principal" aria-hidden="true"></span>Principal amount <strong data-testid="legend-principal-value">—</strong> <span class="share" data-testid="legend-principal-share"></span></li>
+                <li data-testid="legend-interest"><span class="swatch swatch--interest" aria-hidden="true"></span>Total interest <strong data-testid="legend-interest-value">—</strong> <span class="share" data-testid="legend-interest-share"></span></li>
+              </ul>
+            </div>
+            <a id="report-link" class="button button--ghost" href="/reports.html">View amortization report</a>
+          </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/format.js"></script>
+  <script src="/js/loan-math.js"></script>
+  <script src="/js/charts.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

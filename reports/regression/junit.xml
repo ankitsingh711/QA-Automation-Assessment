@@ -1,0 +1,236 @@
+<?xml version="1.0"?>
+<testsuite name="Cucumber" time="20.989" tests="34" skipped="0" failures="0" errors="0" timestamp="2026-10-27T16:34:46.452Z">
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Valid post is created (positive control)" time="1.04">
+    <system-out><![CDATA[Given I have a post payload with a valid post...............................passed
+When I submit the post......................................................passed
+Then the response status should be 201......................................passed
+And the response should echo the submitted fields with a new id.............passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Excessively long strings - #1.1: Server stays healthy for a payload with a 10,000 character title" time="1.907">
+    <system-out><![CDATA[Given I have a post payload with a 10,000 character title...................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Excessively long strings - #1.2: Server stays healthy for a payload with a 100,000 character title" time="0.77">
+    <system-out><![CDATA[Given I have a post payload with a 100,000 character title..................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Excessively long strings - #1.3: Server stays healthy for a payload with a 1,000,000 character title" time="3.222">
+    <system-out><![CDATA[Given I have a post payload with a 1,000,000 character title................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Unsupported special characters - #2.1: Server stays healthy for a payload with an HTML script tag in the title" time="1.045">
+    <system-out><![CDATA[Given I have a post payload with an HTML script tag in the title............passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Unsupported special characters - #2.2: Server stays healthy for a payload with a SQL injection string in the title" time="0.51">
+    <system-out><![CDATA[Given I have a post payload with a SQL injection string in the title........passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Unsupported special characters - #2.3: Server stays healthy for a payload with control characters in the title" time="0.592">
+    <system-out><![CDATA[Given I have a post payload with control characters in the title............passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Unsupported special characters - #2.4: Server stays healthy for a payload with emoji and right-to-left override characters in the title" time="1.021">
+    <system-out><![CDATA[Given I have a post payload with emoji and right-to-left override characters in the title..passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Missing required fields and wrong types - #3.1: Server stays healthy for a payload with no userId" time="0.514">
+    <system-out><![CDATA[Given I have a post payload with no userId..................................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Missing required fields and wrong types - #3.2: Server stays healthy for a payload with no title" time="0.589">
+    <system-out><![CDATA[Given I have a post payload with no title...................................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Missing required fields and wrong types - #3.3: Server stays healthy for a payload with an empty object" time="0.496">
+    <system-out><![CDATA[Given I have a post payload with an empty object............................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Missing required fields and wrong types - #3.4: Server stays healthy for a payload with a non-numeric userId" time="2">
+    <system-out><![CDATA[Given I have a post payload with a non-numeric userId.......................passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Server stays healthy for a payload with &lt;payload> - Missing required fields and wrong types - #3.5: Server stays healthy for a payload with a JSON array instead of an object" time="0.516">
+    <system-out><![CDATA[Given I have a post payload with a JSON array instead of an object..........passed
+When I submit the post......................................................passed
+Then the API should not fail with a server error............................passed
+And the response body should be valid JSON..................................passed
+And the response should arrive within the configured time limit.............passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Title with &lt;payload> is stored without truncation or corruption - #1.1: Title with a 100,000 character title is stored without truncation or corruption" time="1.508">
+    <system-out><![CDATA[Given I have a post payload with a 100,000 character title..................passed
+When I submit the post......................................................passed
+Then the title in the response should be identical to the title I sent......passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Title with &lt;payload> is stored without truncation or corruption - #1.2: Title with an HTML script tag in the title is stored without truncation or corruption" time="0.52">
+    <system-out><![CDATA[Given I have a post payload with an HTML script tag in the title............passed
+When I submit the post......................................................passed
+Then the title in the response should be identical to the title I sent......passed]]></system-out>
+  </testcase>
+  <testcase classname="POST /posts — boundary and invalid data handling" name="Title with &lt;payload> is stored without truncation or corruption - #1.3: Title with emoji and right-to-left override characters in the title is stored without truncation or corruption" time="0.619">
+    <system-out><![CDATA[Given I have a post payload with emoji and right-to-left override characters in the title..passed
+When I submit the post......................................................passed
+Then the title in the response should be identical to the title I sent......passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Report page loads with its parameter form" time="0.619">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+Then the amortization report page should be displayed.......................passed
+And no report should be shown until I generate one..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Generated report matches my own amortization schedule" time="0.303">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+When I generate a report for a loan of 2500000 rupees at 10% for 10 years starting "2026-03"..passed
+Then the report summary should match my independently calculated values.....passed
+And the report should state 120 EMIs closing in "Feb 2036"..................passed
+And the schedule should have one row per calendar year of the loan..........passed
+And every yearly row should match my independently calculated amortization..passed
+And the balance after the final year should be zero.........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Bar chart shows one bar per year and a tooltip with that year's figures" time="0.415">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+When I generate a report for a loan of 1000000 rupees at 12% for 5 years starting "2026-07"..passed
+Then the yearly bar chart should be visible.................................passed
+And the bar chart should contain 6 bars.....................................passed
+And every bar should show non-zero principal and interest...................passed
+When I hover over the bar for 2028..........................................passed
+Then the tooltip should show the 2028 figures from my independently calculated amortization..passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Filtering the schedule to a single year shows its monthly instalments" time="0.239">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+When I generate a report for a loan of 5000000 rupees at 7.5% for 15 years starting "2026-01"..passed
+And I filter the schedule to show monthly instalments for 2027..............passed
+Then the schedule should list 12 monthly instalments for 2027...............passed
+And every monthly row should match my independently calculated instalments..passed
+And the bar for 2027 should be highlighted..................................passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Loan details flow from the dashboard into the report" time="0.284">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I calculate a loan of 5000000 rupees at 7.5% for 15 years..............passed
+And I open the amortization report from the dashboard.......................passed
+Then the report form should be prefilled with 5000000 rupees at 7.5% for 15 years..passed
+And the report summary should match my independently calculated values......passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Invalid report parameters are rejected — &lt;field> - #1.1: Invalid report parameters are rejected — loan amount" time="0.155">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+When I generate a report for a loan of 0 rupees at 10% for 10 years starting "2026-01"..passed
+Then I should see the report error "Loan amount must be between 10,000 and 10,00,00,000."..passed
+And no report should be shown until I generate one..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Invalid report parameters are rejected — &lt;field> - #1.2: Invalid report parameters are rejected — interest rate" time="0.153">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+When I generate a report for a loan of 2500000 rupees at 45% for 10 years starting "2026-01"..passed
+Then I should see the report error "Interest rate must be between 0.1 and 30."..passed
+And no report should be shown until I generate one..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Amortization report" name="Invalid report parameters are rejected — &lt;field> - #1.3: Invalid report parameters are rejected — tenure" time="0.154">
+    <system-out><![CDATA[Given I am on the amortization report page..................................passed
+When I generate a report for a loan of 2500000 rupees at 10% for 31 years starting "2026-01"..passed
+Then I should see the report error "Loan tenure must be between 1 and 30."..passed
+And no report should be shown until I generate one..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="Dashboard loads with the default home loan figures" time="0.136">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+Then the loan dashboard should be displayed.................................passed
+And the "Home Loan" tab should be selected..................................passed
+And the summary should show a monthly EMI, total interest and total payment..passed
+And the summary should match my own calculation for the values in the form..passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="EMI for a &lt;loan type> of &lt;amount> at &lt;rate>% over &lt;tenure> years matches an independently computed value - #1.1: EMI for a Home Loan of 2500000 at 10% over 10 years matches an independently computed value" time="0.186">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I select the "Home Loan" tab...........................................passed
+And I calculate a loan of 2500000 rupees at 10% for 10 years................passed
+Then the monthly EMI should match my independently calculated EMI...........passed
+And the total interest and total payment should match my independently calculated values..passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="EMI for a &lt;loan type> of &lt;amount> at &lt;rate>% over &lt;tenure> years matches an independently computed value - #1.2: EMI for a Home Loan of 5000000 at 7.5% over 15 years matches an independently computed value" time="0.191">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I select the "Home Loan" tab...........................................passed
+And I calculate a loan of 5000000 rupees at 7.5% for 15 years...............passed
+Then the monthly EMI should match my independently calculated EMI...........passed
+And the total interest and total payment should match my independently calculated values..passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="EMI for a &lt;loan type> of &lt;amount> at &lt;rate>% over &lt;tenure> years matches an independently computed value - #1.3: EMI for a Personal Loan of 1000000 at 12% over 5 years matches an independently computed value" time="0.226">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I select the "Personal Loan" tab.......................................passed
+And I calculate a loan of 1000000 rupees at 12% for 5 years.................passed
+Then the monthly EMI should match my independently calculated EMI...........passed
+And the total interest and total payment should match my independently calculated values..passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="EMI for a &lt;loan type> of &lt;amount> at &lt;rate>% over &lt;tenure> years matches an independently computed value - #1.4: EMI for a Car Loan of 750000 at 8.75% over 7 years matches an independently computed value" time="0.203">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I select the "Car Loan" tab............................................passed
+And I calculate a loan of 750000 rupees at 8.75% for 7 years................passed
+Then the monthly EMI should match my independently calculated EMI...........passed
+And the total interest and total payment should match my independently calculated values..passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="Moving the tenure slider recalculates the figures" time="0.117">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I move the "Loan tenure" slider to 20..................................passed
+Then the "Loan tenure" input should show 20.................................passed
+And the summary should match my own calculation for the values in the form..passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="Payment breakdown pie chart renders valid, non-zero data" time="0.251">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I calculate a loan of 2500000 rupees at 10% for 10 years...............passed
+Then the payment breakdown pie chart should be visible......................passed
+And both pie chart segments should have values greater than zero............passed
+And the principal segment should equal the loan amount......................passed
+And the interest segment should equal my independently calculated total interest..passed
+And the pie chart legend should show the same values as the segments........passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="Out-of-range &lt;field> is rejected with a helpful message - #1.1: Out-of-range loan amount is rejected with a helpful message" time="0.153">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I calculate a loan of 50000 rupees at 10% for 10 years.................passed
+Then I should see the validation message "Loan amount must be between ₹1,00,000 and ₹2,00,00,000."..passed
+And the summary figures should be cleared...................................passed
+And the pie chart should be replaced by an empty-state message..............passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="Out-of-range &lt;field> is rejected with a helpful message - #1.2: Out-of-range interest rate is rejected with a helpful message" time="0.148">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I calculate a loan of 2500000 rupees at 25% for 10 years...............passed
+Then I should see the validation message "Interest rate must be between 5% and 20%."..passed
+And the summary figures should be cleared...................................passed
+And the pie chart should be replaced by an empty-state message..............passed]]></system-out>
+  </testcase>
+  <testcase classname="Loan dashboard" name="Out-of-range &lt;field> is rejected with a helpful message - #1.3: Out-of-range tenure is rejected with a helpful message" time="0.149">
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I calculate a loan of 2500000 rupees at 10% for 0 years................passed
+Then I should see the validation message "Loan tenure must be between 1 year and 30 years."..passed
+And the summary figures should be cleared...................................passed
+And the pie chart should be replaced by an empty-state message..............passed]]></system-out>
+  </testcase>
+</testsuite>

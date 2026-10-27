@@ -1,0 +1,121 @@
+$ npx cucumber-js --profile selfHealing
+
+
+Feature: Legacy dashboard checks — intentionally broken locators (AI self-healing exercise)
+
+  @ui @self-healing
+  Scenario: Read the monthly EMI through an absolute XPath # features/self-healing/legacy-locators.feature:12
+    ✔ Given I am on the loan dashboard                     # src/steps/dashboard.steps.ts:11
+    ✘ Then the legacy EMI value should show a rupee amount # src/steps/legacy-locators.steps.ts:11
+          locator.textContent: Timeout 3000ms exceeded.
+          Call log:
+            - waiting for locator('xpath=/html/body/div[1]/main/div[2]/div[1]/span')
+          
+              at LegacyDashboardPage.readEmiText (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:83:33)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:12:37)
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @self-healing
+  Scenario: Recalculate through a removed element id       # features/self-healing/legacy-locators.feature:15
+    ✔ Given I am on the loan dashboard                     # src/steps/dashboard.steps.ts:11
+    ✘ When I recalculate using the legacy Calculate button # src/steps/legacy-locators.steps.ts:15
+          locator.click: Timeout 3000ms exceeded.
+          Call log:
+            - waiting for locator('#btn-calculate')
+          
+              at LegacyDashboardPage.recalculate (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:91:32)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:16:30)
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @self-healing
+  Scenario: Read the total payment through a positional CSS chain    # features/self-healing/legacy-locators.feature:18
+    ✔ Given I am on the loan dashboard                               # src/steps/dashboard.steps.ts:11
+    ✘ Then the legacy total payment value should show a rupee amount # src/steps/legacy-locators.steps.ts:19
+          locator.textContent: Timeout 3000ms exceeded.
+          Call log:
+            - waiting for locator('div.summary-cards > div:nth-child(3) > span.value')
+          
+              at LegacyDashboardPage.readTotalPaymentText (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:87:42)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:20:37)
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @self-healing
+  Scenario: Enter the loan amount through a renamed form field                 # features/self-healing/legacy-locators.feature:21
+    ✔ Given I am on the loan dashboard                                         # src/steps/dashboard.steps.ts:11
+    ✘ When I enter a loan amount of 3000000 using the legacy loan amount field # src/steps/legacy-locators.steps.ts:23
+          locator.fill: Timeout 3000ms exceeded.
+          Call log:
+            - waiting for locator('input[name="principal"]')
+          
+              at LegacyDashboardPage.enterLoanAmount (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:95:32)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:24:30)
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @self-healing
+  Scenario: Switch loan type through outdated tab copy             # features/self-healing/legacy-locators.feature:24
+    ✔ Given I am on the loan dashboard                             # src/steps/dashboard.steps.ts:11
+    ✘ When I select the home loan tab using the legacy tab locator # src/steps/legacy-locators.steps.ts:27
+          locator.click: Timeout 3000ms exceeded.
+          Call log:
+            - waiting for locator('text="Home Loans"')
+          
+              at LegacyDashboardPage.selectHomeLoan (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:99:28)
+              at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:28:30)
+
+          Embedding [image/png 85113 bytes]
+
+
+Failed scenarios:
+  1) Read the monthly EMI through an absolute XPath # features/self-healing/legacy-locators.feature:12
+       Then the legacy EMI value should show a rupee amount # src/steps/legacy-locators.steps.ts:11
+           locator.textContent: Timeout 3000ms exceeded.
+           Call log:
+             - waiting for locator('xpath=/html/body/div[1]/main/div[2]/div[1]/span')
+           
+               at LegacyDashboardPage.readEmiText (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:83:33)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:12:37)
+  2) Recalculate through a removed element id # features/self-healing/legacy-locators.feature:15
+       When I recalculate using the legacy Calculate button # src/steps/legacy-locators.steps.ts:15
+           locator.click: Timeout 3000ms exceeded.
+           Call log:
+             - waiting for locator('#btn-calculate')
+           
+               at LegacyDashboardPage.recalculate (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:91:32)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:16:30)
+  3) Read the total payment through a positional CSS chain # features/self-healing/legacy-locators.feature:18
+       Then the legacy total payment value should show a rupee amount # src/steps/legacy-locators.steps.ts:19
+           locator.textContent: Timeout 3000ms exceeded.
+           Call log:
+             - waiting for locator('div.summary-cards > div:nth-child(3) > span.value')
+           
+               at LegacyDashboardPage.readTotalPaymentText (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:87:42)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:20:37)
+  4) Enter the loan amount through a renamed form field # features/self-healing/legacy-locators.feature:21
+       When I enter a loan amount of 3000000 using the legacy loan amount field # src/steps/legacy-locators.steps.ts:23
+           locator.fill: Timeout 3000ms exceeded.
+           Call log:
+             - waiting for locator('input[name="principal"]')
+           
+               at LegacyDashboardPage.enterLoanAmount (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:95:32)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:24:30)
+  5) Switch loan type through outdated tab copy # features/self-healing/legacy-locators.feature:24
+       When I select the home loan tab using the legacy tab locator # src/steps/legacy-locators.steps.ts:27
+           locator.click: Timeout 3000ms exceeded.
+           Call log:
+             - waiting for locator('text="Home Loans"')
+           
+               at LegacyDashboardPage.selectHomeLoan (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:99:28)
+               at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:28:30)
+
+1 hook (1 passed)
+5 scenarios (5 failed)
+20 steps (15 passed, 5 failed)
+0m 16.204s (0m 16.181s executing your code)

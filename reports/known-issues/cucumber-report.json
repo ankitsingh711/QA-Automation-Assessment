@@ -1,0 +1,975 @@
+[
+  {
+    "description": "  Target: JSONPlaceholder (API_BASE_URL in config/env/*.env)\n\n  Objective: the API must handle boundary and invalid data during post creation\n  without server-side failures, and should reject invalid input with a 4xx and an\n  error message.\n\n  JSONPlaceholder is a mock that does not validate input, so the scenarios are split:\n    * untagged  — behaviour that MUST hold (no 5xx, data integrity). Gate the build.\n    * @known-issue — the contract the spec asks for. These currently FAIL and are\n      reported as defects (see README \"Defects found\"). Run with: npm run test:known-issues",
+    "elements": [
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;invalid-payload-is-rejected-with-a-client-error-—-no-userid",
+        "keyword": "Scenario Outline",
+        "line": 69,
+        "name": "Invalid payload is rejected with a client error — no userId",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 22249957
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 166999
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 62,
+            "name": "I have a post payload with no userId",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 976591375
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 63,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogdXNlcklkIG9taXR0ZWQgKDc3IGJ5dGVzKQrihpIgMjAxIGluIDk2NSBtcwpSZXNwb25zZTogewogICJ0aXRsZSI6ICJTdHJlYW1odWIgUUEgYXNzZXNzbWVudCIsCiAgImJvZHkiOiAiQm91bmRhcnkgdGVzdGluZyBmb3IgUE9TVCAvcG9zdHMiLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 4996291,
+              "error_message": "Error: expected HTTP 400, got 201. Body: {\n  \"title\": \"Streamhub QA assessment\",\n  \"body\": \"Boundary testing for POST /posts\",\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 400\nReceived: 201\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 64,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2015625
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 60
+          },
+          {
+            "name": "@DEF-001",
+            "line": 60
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;invalid-payload-is-rejected-with-a-client-error-—-no-title",
+        "keyword": "Scenario Outline",
+        "line": 70,
+        "name": "Invalid payload is rejected with a client error — no title",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 771958
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 60290
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 62,
+            "name": "I have a post payload with no title",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 585121333
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 63,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogdGl0bGUgb21pdHRlZCAoNTQgYnl0ZXMpCuKGkiAyMDEgaW4gNTg0IG1zClJlc3BvbnNlOiB7CiAgImJvZHkiOiAiQm91bmRhcnkgdGVzdGluZyBmb3IgUE9TVCAvcG9zdHMiLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 820917,
+              "error_message": "Error: expected HTTP 400, got 201. Body: {\n  \"body\": \"Boundary testing for POST /posts\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 400\nReceived: 201\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 64,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1701165
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 60
+          },
+          {
+            "name": "@DEF-001",
+            "line": 60
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;invalid-payload-is-rejected-with-a-client-error-—-an-empty-object",
+        "keyword": "Scenario Outline",
+        "line": 71,
+        "name": "Invalid payload is rejected with a client error — an empty object",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1468041
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 266542
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 62,
+            "name": "I have a post payload with an empty object",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 494379832
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 63,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogTm8gZmllbGRzIGF0IGFsbCAoMiBieXRlcykK4oaSIDIwMSBpbiA0OTMgbXMKUmVzcG9uc2U6IHsKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 831874,
+              "error_message": "Error: expected HTTP 400, got 201. Body: {\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 400\nReceived: 201\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 64,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1227958
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 60
+          },
+          {
+            "name": "@DEF-001",
+            "line": 60
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;invalid-payload-is-rejected-with-a-client-error-—-a-non-numeric-userid",
+        "keyword": "Scenario Outline",
+        "line": 72,
+        "name": "Invalid payload is rejected with a client error — a non-numeric userId",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 929290
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 235667
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 62,
+            "name": "I have a post payload with a non-numeric userId",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1214230083
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 63,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogdXNlcklkIGFzIGEgc3RyaW5nICg5MiBieXRlcykK4oaSIDIwMSBpbiAxMjEyIG1zClJlc3BvbnNlOiB7CiAgInRpdGxlIjogIlN0cmVhbWh1YiBRQSBhc3Nlc3NtZW50IiwKICAiYm9keSI6ICJCb3VuZGFyeSB0ZXN0aW5nIGZvciBQT1NUIC9wb3N0cyIsCiAgInVzZXJJZCI6ICJhYmMiLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1197124,
+              "error_message": "Error: expected HTTP 400, got 201. Body: {\n  \"title\": \"Streamhub QA assessment\",\n  \"body\": \"Boundary testing for POST /posts\",\n  \"userId\": \"abc\",\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 400\nReceived: 201\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 64,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2819542
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 60
+          },
+          {
+            "name": "@DEF-001",
+            "line": 60
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;invalid-payload-is-rejected-with-a-client-error-—-a-json-array-instead-of-an-object",
+        "keyword": "Scenario Outline",
+        "line": 73,
+        "name": "Invalid payload is rejected with a client error — a JSON array instead of an object",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 12506875
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 160125
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 62,
+            "name": "I have a post payload with a JSON array instead of an object",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2023143250
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 63,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogVG9wLWxldmVsIGFycmF5IGJvZHkgKDcgYnl0ZXMpCuKGkiAyMDEgaW4gMjAyMSBtcwpSZXNwb25zZTogewogICIwIjogMSwKICAiMSI6IDIsCiAgIjIiOiAzLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1114500,
+              "error_message": "Error: expected HTTP 400, got 201. Body: {\n  \"0\": 1,\n  \"1\": 2,\n  \"2\": 3,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 400\nReceived: 201\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 64,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2923249
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 60
+          },
+          {
+            "name": "@DEF-001",
+            "line": 60
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;invalid-payload-is-rejected-with-a-client-error-—-control-characters-in-the-title",
+        "keyword": "Scenario Outline",
+        "line": 74,
+        "name": "Invalid payload is rejected with a client error — control characters in the title",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2702417
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 176082
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 62,
+            "name": "I have a post payload with control characters in the title",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 586017499
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 63,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogTlVMLCBCRUwgYW5kIGVzY2FwZSBjaGFyYWN0ZXJzICgxMDMgYnl0ZXMpCuKGkiAyMDEgaW4gNTgzIG1zClJlc3BvbnNlOiB7CiAgInRpdGxlIjogImJhZFx1MDAwMHRpdGxlXHUwMDA3d2l0aFx1MDAxYmNvbnRyb2xzIiwKICAiYm9keSI6ICJCb3VuZGFyeSB0ZXN0aW5nIGZvciBQT1NUIC9wb3N0cyIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1961582,
+              "error_message": "Error: expected HTTP 400, got 201. Body: {\n  \"title\": \"bad\\u0000title\\u0007with\\u001bcontrols\",\n  \"body\": \"Boundary testing for POST /posts\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: 400\nReceived: 201\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBe (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:48:96)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 64,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1781790
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 60
+          },
+          {
+            "name": "@DEF-001",
+            "line": 60
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;oversized-title-is-rejected-as-too-large",
+        "keyword": "Scenario",
+        "line": 77,
+        "name": "Oversized title is rejected as too large",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1204666
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 107165
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 78,
+            "name": "I have a post payload with a 1,000,000 character title",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2476530749
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 79,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogfjEgTUIgdGl0bGUg4oCUIHBheWxvYWQtc2l6ZSBib3VuZGFyeSAoMSwwMDAsMDY1IGJ5dGVzKQrihpIgMjAxIGluIDI0NjkgbXMKUmVzcG9uc2U6IHsKICAidGl0bGUiOiAiQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUHigKYgKDEwMDAwOTEgY2hhcnMp",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 2925792,
+              "error_message": "Error: expected one of 400/413/422, got 201. Body: {\n  \"title\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)\n\nexpect(received).toContain(expected) // indexOf\n\nExpected value: 201\nReceived array: [400, 413, 422]\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toContain (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:53:102)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 80,
+            "name": "the response status should be one of 400, 413 or 422",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:51"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 81,
+            "name": "the response should contain a validation error message",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:83"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2421249
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 76
+          },
+          {
+            "name": "@DEF-002",
+            "line": 76
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;unparseable-body-returns-a-client-error,-not-a-server-crash-—-malformed-json",
+        "keyword": "Scenario Outline",
+        "line": 93,
+        "name": "Unparseable body returns a client error, not a server crash — malformed JSON",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 932582
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 105750
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 85,
+            "name": "I have a post payload with malformed JSON",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1264284417
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 86,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogVHJ1bmNhdGVkIEpTT04gZG9jdW1lbnQgKDI2IGJ5dGVzKQrihpIgNTAwIGluIDEyNjIgbXMKUmVzcG9uc2U6IFN5bnRheEVycm9yOiBFeHBlY3RlZCBkb3VibGUtcXVvdGVkIHByb3BlcnR5IG5hbWUgaW4gSlNPTiBhdCBwb3NpdGlvbiAyNiAobGluZSAxIGNvbHVtbiAyNykKICAgIGF0IEpTT04ucGFyc2UgKDxhbm9ueW1vdXM+KQogICAgYXQgcGFyc2UgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi90eXBlcy9qc29uLmpzOjg5OjE5KQogICAgYXQgL2FwcC9ub2RlX21vZHVsZXMvYm9keS1wYXJzZXIvbGliL3JlYWQuanM6MTIxOjE4CiAgICBhdCBpbnZva2VDYWxsYmFjayAoL2FwcC9ub2RlX21vZHVsZXMvYm9keS1wYXJzZXIvbm9kZV9tb2R1bGVzL3Jhdy1ib2R5L2luZGV4LmpzOjIyNDoxNikKICAgIGF0IGRvbmUgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL25vZGVfbW9kdWxlcy9yYXfigKYgKDcxMyBjaGFycyk=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1760166,
+              "error_message": "Error: server-side failure (HTTP 500): SyntaxError: Expected double-quoted property name in JSON at position 26 (line 1 column 27)\n    at JSON.parse (<anonymous>)\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at done (/app/node_modules/body-parser/node_modules/raw… (713 chars)\n\nexpect(received).toBeLessThan(expected)\n\nExpected: < 500\nReceived:   500\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 87,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:56"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 88,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 89,
+            "name": "the response should not expose internal implementation details",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:90"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3804750
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 83
+          },
+          {
+            "name": "@DEF-003",
+            "line": 83
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "post-/posts-—-boundary-and-invalid-data-handling;unparseable-body-returns-a-client-error,-not-a-server-crash-—-invalid-utf-8-bytes",
+        "keyword": "Scenario Outline",
+        "line": 94,
+        "name": "Unparseable body returns a client error, not a server crash — invalid UTF-8 bytes",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2153333
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 152458
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 85,
+            "name": "I have a post payload with invalid UTF-8 bytes",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:27"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 504342833
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 86,
+            "name": "I submit the post",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMKUGF5bG9hZDogQnl0ZSBzZXF1ZW5jZSB0aGF0IGlzIG5vdCB2YWxpZCBVVEYtOCAoNCBieXRlcykK4oaSIDUwMCBpbiA1MDMgbXMKUmVzcG9uc2U6IFN5bnRheEVycm9yOiBVbmV4cGVjdGVkIHRva2VuICfvv70nLCAiIyIgaXMgbm90IHZhbGlkIEpTT04KICAgIGF0IEpTT04ucGFyc2UgKDxhbm9ueW1vdXM+KQogICAgYXQgY3JlYXRlU3RyaWN0U3ludGF4RXJyb3IgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi90eXBlcy9qc29uLmpzOjE1ODoxMCkKICAgIGF0IHBhcnNlICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9saWIvdHlwZXMvanNvbi5qczo4MzoxNSkKICAgIGF0IC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi9yZWFkLmpzOjEyMToxOAogICAgYXQgaW52b2tlQ2FsbGJhY2sgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL25vZGVfbW9kdWxlcy9yYXctYm9keS9pbmRleC5qczoyMjQ6MTYpCiAgICBhdOKApiAoNzY2IGNoYXJzKQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1344750,
+              "error_message": "Error: server-side failure (HTTP 500): SyntaxError: Unexpected token '�', \"#\" is not valid JSON\n    at JSON.parse (<anonymous>)\n    at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)\n    at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at… (766 chars)\n\nexpect(received).toBeLessThan(expected)\n\nExpected: < 500\nReceived:   500\n    at createStrictSyntaxError (/app/node_modules/body-parser/lib/types/json.js:158:10)\n    at parse (/app/node_modules/body-parser/lib/types/json.js:83:15)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at captureRawStack (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright-core/lib/coreBundle.js:9282:17)\n    at callMatcherAsStep (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13316:57)\n    at Object.toBeLessThan (/Users/ankitsingh/QA-Automation-Assessment/node_modules/playwright/lib/matchers/expect.js:13308:23)\n    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/posts-api.steps.ts:58:88)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 87,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:56"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 88,
+            "name": "the response status should be 400",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:46"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 89,
+            "name": "the response should not expose internal implementation details",
+            "match": {
+              "location": "src/steps/posts-api.steps.ts:90"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3017874
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@posts",
+            "line": 1
+          },
+          {
+            "name": "@known-issue",
+            "line": 83
+          },
+          {
+            "name": "@DEF-003",
+            "line": 83
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "post-/posts-—-boundary-and-invalid-data-handling",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "POST /posts — boundary and invalid data handling",
+    "tags": [
+      {
+        "name": "@api",
+        "line": 1
+      },
+      {
+        "name": "@posts",
+        "line": 1
+      }
+    ],
+    "uri": "features/api/create-post.feature"
+  }
+]

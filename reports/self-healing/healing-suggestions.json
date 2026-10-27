@@ -1,0 +1,367 @@
+{
+  "provider": "heuristic (offline)",
+  "outcomes": [
+    {
+      "key": "emiValue",
+      "locator": {
+        "kind": "value",
+        "lastKnownLabel": "Monthly EMI",
+        "selector": "xpath=/html/body/div[1]/main/div[2]/div[1]/span",
+        "intent": "The monthly EMI amount shown in the Summary section of the loan dashboard",
+        "brittleBecause": "Absolute, index-based XPath recorded against an older layout; any wrapper element added above it breaks it."
+      },
+      "status": "healed",
+      "failure": "locator.waitFor: Timeout 2000ms exceeded. Call log:   - waiting for locator('xpath=/html/body/div[1]/main/div[2]/div[1]/span') to be visible",
+      "attempts": [
+        {
+          "suggestion": {
+            "spec": {
+              "strategy": "testid",
+              "role": null,
+              "value": "emi-value",
+              "exact": true
+            },
+            "confidence": 1,
+            "rationale": "Matched 7 weighted keyword(s) from the intent/selector against data-testid \"emi-value\" in \"Monthly EMI\"."
+          },
+          "code": "getByTestId('emi-value')",
+          "passed": true,
+          "checks": [
+            {
+              "name": "Resilient strategy (no CSS/XPath/positional)",
+              "ok": true,
+              "detail": "testid locator"
+            },
+            {
+              "name": "Confidence threshold",
+              "ok": true,
+              "detail": "1 (min 0.55)"
+            },
+            {
+              "name": "Resolves to exactly one element",
+              "ok": true,
+              "detail": "matched 1"
+            },
+            {
+              "name": "Visible",
+              "ok": true,
+              "detail": "isVisible()"
+            },
+            {
+              "name": "Fingerprint matches \"value\"",
+              "ok": true,
+              "detail": "{\"tag\":\"p\",\"role\":null,\"type\":null,\"text\":\"₹33,038\"}"
+            },
+            {
+              "name": "Anchored to last-known label",
+              "ok": true,
+              "detail": "card heading \"Monthly EMI\", expected \"Monthly EMI\""
+            },
+            {
+              "name": "Behaviour: readable rupee amount",
+              "ok": true,
+              "detail": "textContent() = ₹33,038"
+            }
+          ]
+        }
+      ],
+      "healed": {
+        "spec": {
+          "strategy": "testid",
+          "role": null,
+          "value": "emi-value",
+          "exact": true
+        },
+        "code": "getByTestId('emi-value')",
+        "confidence": 1,
+        "rationale": "Matched 7 weighted keyword(s) from the intent/selector against data-testid \"emi-value\" in \"Monthly EMI\"."
+      }
+    },
+    {
+      "key": "calculateButton",
+      "locator": {
+        "kind": "button",
+        "selector": "#btn-calculate",
+        "intent": "The button that submits the loan details form and recalculates the EMI",
+        "brittleBecause": "Relies on a generated id that was removed when the form was refactored."
+      },
+      "status": "healed",
+      "failure": "locator.waitFor: Timeout 2000ms exceeded. Call log:   - waiting for locator('#btn-calculate') to be visible",
+      "attempts": [
+        {
+          "suggestion": {
+            "spec": {
+              "strategy": "role",
+              "role": "button",
+              "value": "Calculate",
+              "exact": true
+            },
+            "confidence": 1,
+            "rationale": "Matched 3 weighted keyword(s) from the intent/selector against button \"Calculate\"."
+          },
+          "code": "getByRole('button', { name: 'Calculate', exact: true })",
+          "passed": true,
+          "checks": [
+            {
+              "name": "Resilient strategy (no CSS/XPath/positional)",
+              "ok": true,
+              "detail": "role locator"
+            },
+            {
+              "name": "Confidence threshold",
+              "ok": true,
+              "detail": "1 (min 0.55)"
+            },
+            {
+              "name": "Resolves to exactly one element",
+              "ok": true,
+              "detail": "matched 1"
+            },
+            {
+              "name": "Visible",
+              "ok": true,
+              "detail": "isVisible()"
+            },
+            {
+              "name": "Fingerprint matches \"button\"",
+              "ok": true,
+              "detail": "{\"tag\":\"button\",\"role\":null,\"type\":\"submit\",\"text\":\"Calculate\"}"
+            },
+            {
+              "name": "Behaviour: clickable",
+              "ok": true,
+              "detail": "click() succeeded"
+            }
+          ]
+        }
+      ],
+      "healed": {
+        "spec": {
+          "strategy": "role",
+          "role": "button",
+          "value": "Calculate",
+          "exact": true
+        },
+        "code": "getByRole('button', { name: 'Calculate', exact: true })",
+        "confidence": 1,
+        "rationale": "Matched 3 weighted keyword(s) from the intent/selector against button \"Calculate\"."
+      }
+    },
+    {
+      "key": "totalPaymentValue",
+      "locator": {
+        "kind": "value",
+        "lastKnownLabel": "Total payment",
+        "selector": "div.summary-cards > div:nth-child(3) > span.value",
+        "intent": "The total payment (principal + interest) amount shown in the Summary section",
+        "brittleBecause": "Positional CSS chain tied to tag names and class names; cards became <article> and the value a <p>."
+      },
+      "status": "healed",
+      "failure": "locator.waitFor: Timeout 2000ms exceeded. Call log:   - waiting for locator('div.summary-cards > div:nth-child(3) > span.value') to be visible",
+      "attempts": [
+        {
+          "suggestion": {
+            "spec": {
+              "strategy": "testid",
+              "role": null,
+              "value": "total-payment-value",
+              "exact": true
+            },
+            "confidence": 0.64,
+            "rationale": "Matched 7 weighted keyword(s) from the intent/selector against data-testid \"total-payment-value\" in \"Total payment\"."
+          },
+          "code": "getByTestId('total-payment-value')",
+          "passed": true,
+          "checks": [
+            {
+              "name": "Resilient strategy (no CSS/XPath/positional)",
+              "ok": true,
+              "detail": "testid locator"
+            },
+            {
+              "name": "Confidence threshold",
+              "ok": true,
+              "detail": "0.64 (min 0.55)"
+            },
+            {
+              "name": "Resolves to exactly one element",
+              "ok": true,
+              "detail": "matched 1"
+            },
+            {
+              "name": "Visible",
+              "ok": true,
+              "detail": "isVisible()"
+            },
+            {
+              "name": "Fingerprint matches \"value\"",
+              "ok": true,
+              "detail": "{\"tag\":\"p\",\"role\":null,\"type\":null,\"text\":\"₹39,64,522\"}"
+            },
+            {
+              "name": "Anchored to last-known label",
+              "ok": true,
+              "detail": "card heading \"Total payment\", expected \"Total payment\""
+            },
+            {
+              "name": "Behaviour: readable rupee amount",
+              "ok": true,
+              "detail": "textContent() = ₹39,64,522"
+            }
+          ]
+        }
+      ],
+      "healed": {
+        "spec": {
+          "strategy": "testid",
+          "role": null,
+          "value": "total-payment-value",
+          "exact": true
+        },
+        "code": "getByTestId('total-payment-value')",
+        "confidence": 0.64,
+        "rationale": "Matched 7 weighted keyword(s) from the intent/selector against data-testid \"total-payment-value\" in \"Total payment\"."
+      }
+    },
+    {
+      "key": "loanAmountInput",
+      "locator": {
+        "kind": "input",
+        "selector": "input[name=\"principal\"]",
+        "intent": "The number input where the user types the loan amount in rupees",
+        "brittleBecause": "Couples to a form field name that was renamed from \"principal\" to \"amount\"."
+      },
+      "status": "healed",
+      "failure": "locator.waitFor: Timeout 2000ms exceeded. Call log:   - waiting for locator('input[name=\"principal\"]') to be visible",
+      "attempts": [
+        {
+          "suggestion": {
+            "spec": {
+              "strategy": "role",
+              "role": "spinbutton",
+              "value": "Loan amount (₹)",
+              "exact": true
+            },
+            "confidence": 0.78,
+            "rationale": "Matched 7 weighted keyword(s) from the intent/selector against spinbutton \"Loan amount (₹)\"."
+          },
+          "code": "getByRole('spinbutton', { name: 'Loan amount (₹)', exact: true })",
+          "passed": true,
+          "checks": [
+            {
+              "name": "Resilient strategy (no CSS/XPath/positional)",
+              "ok": true,
+              "detail": "role locator"
+            },
+            {
+              "name": "Confidence threshold",
+              "ok": true,
+              "detail": "0.78 (min 0.55)"
+            },
+            {
+              "name": "Resolves to exactly one element",
+              "ok": true,
+              "detail": "matched 1"
+            },
+            {
+              "name": "Visible",
+              "ok": true,
+              "detail": "isVisible()"
+            },
+            {
+              "name": "Fingerprint matches \"input\"",
+              "ok": true,
+              "detail": "{\"tag\":\"input\",\"role\":null,\"type\":\"number\",\"text\":\"\"}"
+            },
+            {
+              "name": "Behaviour: accepts input",
+              "ok": true,
+              "detail": "inputValue() = 3000000"
+            }
+          ]
+        }
+      ],
+      "healed": {
+        "spec": {
+          "strategy": "role",
+          "role": "spinbutton",
+          "value": "Loan amount (₹)",
+          "exact": true
+        },
+        "code": "getByRole('spinbutton', { name: 'Loan amount (₹)', exact: true })",
+        "confidence": 0.78,
+        "rationale": "Matched 7 weighted keyword(s) from the intent/selector against spinbutton \"Loan amount (₹)\"."
+      }
+    },
+    {
+      "key": "homeLoanTab",
+      "locator": {
+        "kind": "tab",
+        "selector": "text=\"Home Loans\"",
+        "intent": "The tab that switches the dashboard to the Home Loan calculator",
+        "brittleBecause": "Exact-text match on UI copy that changed from \"Home Loans\" to \"Home Loan\"."
+      },
+      "status": "healed",
+      "failure": "locator.waitFor: Timeout 2000ms exceeded. Call log:   - waiting for locator('text=\"Home Loans\"') to be visible",
+      "attempts": [
+        {
+          "suggestion": {
+            "spec": {
+              "strategy": "role",
+              "role": "tab",
+              "value": "Home Loan",
+              "exact": true
+            },
+            "confidence": 0.75,
+            "rationale": "Matched 9 weighted keyword(s) from the intent/selector against tab \"Home Loan\"."
+          },
+          "code": "getByRole('tab', { name: 'Home Loan', exact: true })",
+          "passed": true,
+          "checks": [
+            {
+              "name": "Resilient strategy (no CSS/XPath/positional)",
+              "ok": true,
+              "detail": "role locator"
+            },
+            {
+              "name": "Confidence threshold",
+              "ok": true,
+              "detail": "0.75 (min 0.55)"
+            },
+            {
+              "name": "Resolves to exactly one element",
+              "ok": true,
+              "detail": "matched 1"
+            },
+            {
+              "name": "Visible",
+              "ok": true,
+              "detail": "isVisible()"
+            },
+            {
+              "name": "Fingerprint matches \"tab\"",
+              "ok": true,
+              "detail": "{\"tag\":\"button\",\"role\":\"tab\",\"type\":\"button\",\"text\":\"Home Loan\"}"
+            },
+            {
+              "name": "Behaviour: becomes selected",
+              "ok": true,
+              "detail": "aria-selected = true"
+            }
+          ]
+        }
+      ],
+      "healed": {
+        "spec": {
+          "strategy": "role",
+          "role": "tab",
+          "value": "Home Loan",
+          "exact": true
+        },
+        "code": "getByRole('tab', { name: 'Home Loan', exact: true })",
+        "confidence": 0.75,
+        "rationale": "Matched 9 weighted keyword(s) from the intent/selector against tab \"Home Loan\"."
+      }
+    }
+  ]
+}

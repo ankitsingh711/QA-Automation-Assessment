@@ -1,0 +1,575 @@
+$ npx cucumber-js
+
+
+Feature: POST /posts — boundary and invalid data handling
+
+  @api @posts
+  Scenario: Valid post is created (positive control)                  # features/api/create-post.feature:14
+    ✔ Given I have a post payload with a valid post                   # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: All required fields with sensible values (88 bytes)
+          → 201 in 993 ms
+          Response: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                          # src/steps/posts-api.steps.ts:31
+    ✔ Then the response status should be 201                          # src/steps/posts-api.steps.ts:46
+    ✔ And the response should echo the submitted fields with a new id # src/steps/posts-api.steps.ts:69
+    ✔ And the response should arrive within the configured time limit # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with a 10,000 character title # features/api/create-post.feature:30
+    ✔ Given I have a post payload with a 10,000 character title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Title well beyond any reasonable UI limit (10,065 bytes)
+          → 201 in 1893 ms
+          Response: {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (10091 chars)
+
+    ✔ When I submit the post                                                         # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                               # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                     # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with a 100,000 character title # features/api/create-post.feature:31
+    ✔ Given I have a post payload with a 100,000 character title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: ~100 KB title (100,065 bytes)
+          → 201 in 750 ms
+          Response: {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (100091 chars)
+
+    ✔ When I submit the post                                                          # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                      # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                 # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with a 1,000,000 character title # features/api/create-post.feature:32
+    ✔ Given I have a post payload with a 1,000,000 character title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: ~1 MB title — payload-size boundary (1,000,065 bytes)
+          → 201 in 3159 ms
+          Response: {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (1000091 chars)
+
+    ✔ When I submit the post                                                            # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                  # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                        # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                   # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with an HTML script tag in the title # features/api/create-post.feature:36
+    ✔ Given I have a post payload with an HTML script tag in the title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Stored-XSS probe (96 bytes)
+          → 201 in 1033 ms
+          Response: {
+            "title": "<script>alert(\"xss\")</script>",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                      # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                            # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                       # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with a SQL injection string in the title # features/api/create-post.feature:37
+    ✔ Given I have a post payload with a SQL injection string in the title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Classic SQLi probe (94 bytes)
+          → 201 in 501 ms
+          Response: {
+            "title": "Robert'); DROP TABLE posts;--",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                    # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                          # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                                # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                           # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with control characters in the title # features/api/create-post.feature:38
+    ✔ Given I have a post payload with control characters in the title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: NUL, BEL and escape characters (103 bytes)
+          → 201 in 584 ms
+          Response: {
+            "title": "bad\u0000title\u0007with\u001bcontrols",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                      # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                            # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                       # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with emoji and right-to-left override characters in the title # features/api/create-post.feature:39
+    ✔ Given I have a post payload with emoji and right-to-left override characters in the title                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Multi-byte + bidi spoofing characters (91 bytes)
+          → 201 in 1004 ms
+          Response: {
+            "title": "pay 😀 ‮gnp.exe‬ ​",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                                         # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                                               # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                                                     # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                                                # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with no userId # features/api/create-post.feature:43
+    ✔ Given I have a post payload with no userId                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: userId omitted (77 bytes)
+          → 201 in 506 ms
+          Response: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "id": 101
+          }
+
+    ✔ When I submit the post                                          # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                      # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with no title  # features/api/create-post.feature:44
+    ✔ Given I have a post payload with no title                       # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: title omitted (54 bytes)
+          → 201 in 582 ms
+          Response: {
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                          # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                      # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with an empty object # features/api/create-post.feature:45
+    ✔ Given I have a post payload with an empty object                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: No fields at all (2 bytes)
+          → 201 in 488 ms
+          Response: {
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                      # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                            # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit       # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with a non-numeric userId # features/api/create-post.feature:46
+    ✔ Given I have a post payload with a non-numeric userId                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: userId as a string (92 bytes)
+          → 201 in 1983 ms
+          Response: {
+            "title": "Streamhub QA assessment",
+            "body": "Boundary testing for POST /posts",
+            "userId": "abc",
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                     # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                           # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                 # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit            # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Server stays healthy for a payload with a JSON array instead of an object # features/api/create-post.feature:47
+    ✔ Given I have a post payload with a JSON array instead of an object                      # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Top-level array body (7 bytes)
+          → 201 in 502 ms
+          Response: {
+            "0": 1,
+            "1": 2,
+            "2": 3,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                  # src/steps/posts-api.steps.ts:31
+    ✔ Then the API should not fail with a server error                                        # src/steps/posts-api.steps.ts:56
+    ✔ And the response body should be valid JSON                                              # src/steps/posts-api.steps.ts:61
+    ✔ And the response should arrive within the configured time limit                         # src/steps/posts-api.steps.ts:65
+
+  @api @posts
+  Scenario Outline: Title with a 100,000 character title is stored without truncation or corruption # features/api/create-post.feature:56
+    ✔ Given I have a post payload with a 100,000 character title                                    # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: ~100 KB title (100,065 bytes)
+          → 201 in 1472 ms
+          Response: {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (100091 chars)
+
+    ✔ When I submit the post                                                                        # src/steps/posts-api.steps.ts:31
+    ✔ Then the title in the response should be identical to the title I sent                        # src/steps/posts-api.steps.ts:76
+
+  @api @posts
+  Scenario Outline: Title with an HTML script tag in the title is stored without truncation or corruption # features/api/create-post.feature:57
+    ✔ Given I have a post payload with an HTML script tag in the title                                    # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Stored-XSS probe (96 bytes)
+          → 201 in 491 ms
+          Response: {
+            "title": "<script>alert(\"xss\")</script>",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                              # src/steps/posts-api.steps.ts:31
+    ✔ Then the title in the response should be identical to the title I sent                              # src/steps/posts-api.steps.ts:76
+
+  @api @posts
+  Scenario Outline: Title with emoji and right-to-left override characters in the title is stored without truncation or corruption # features/api/create-post.feature:58
+    ✔ Given I have a post payload with emoji and right-to-left override characters in the title                                    # src/steps/posts-api.steps.ts:27
+
+          POST https://jsonplaceholder.typicode.com/posts
+          Payload: Multi-byte + bidi spoofing characters (91 bytes)
+          → 201 in 604 ms
+          Response: {
+            "title": "pay 😀 ‮gnp.exe‬ ​",
+            "body": "Boundary testing for POST /posts",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I submit the post                                                                                                       # src/steps/posts-api.steps.ts:31
+    ✔ Then the title in the response should be identical to the title I sent                                                       # src/steps/posts-api.steps.ts:76
+
+Feature: Amortization report
+
+  @ui @report @smoke
+  Scenario: Report page loads with its parameter form       # features/ui/amortization-report.feature:8
+    ✔ Given I am on the amortization report page            # src/steps/report.steps.ts:14
+    ✔ Then the amortization report page should be displayed # src/steps/report.steps.ts:18
+    ✔ And no report should be shown until I generate one    # src/steps/report.steps.ts:28
+
+          Embedding [image/png 37713 bytes]
+
+
+  @ui @report
+  Scenario: Generated report matches my own amortization schedule                                  # features/ui/amortization-report.feature:13
+    ✔ Given I am on the amortization report page                                                   # src/steps/report.steps.ts:14
+    ✔ When I generate a report for a loan of 2500000 rupees at 10% for 10 years starting "2026-03" # src/steps/report.steps.ts:32
+    ✔ Then the report summary should match my independently calculated values                      # src/steps/report.steps.ts:52
+    ✔ And the report should state 120 EMIs closing in "Feb 2036"                                   # src/steps/report.steps.ts:61
+    ✔ And the schedule should have one row per calendar year of the loan                           # src/steps/report.steps.ts:72
+
+          Check         | Expected (independent) | Displayed
+          2026 interest | 203654                 | 203654   
+          2027 interest | 229828                 | 229828   
+          2028 interest | 212380                 | 212380   
+          2029 interest | 193106                 | 193106   
+          2030 interest | 171813                 | 171813   
+          2031 interest | 148290                 | 148290   
+          2032 interest | 122304                 | 122304   
+          2033 interest | 93597                  | 93597    
+          2034 interest | 61884                  | 61884    
+          2035 interest | 26850                  | 26850    
+          2036 interest | 817                    | 817      
+
+    ✔ And every yearly row should match my independently calculated amortization                   # src/steps/report.steps.ts:77
+    ✔ And the balance after the final year should be zero                                          # src/steps/report.steps.ts:95
+
+          Embedding [image/png 157338 bytes]
+
+
+  @ui @report @chart
+  Scenario: Bar chart shows one bar per year and a tooltip with that year's figures               # features/ui/amortization-report.feature:23
+    ✔ Given I am on the amortization report page                                                  # src/steps/report.steps.ts:14
+    ✔ When I generate a report for a loan of 1000000 rupees at 12% for 5 years starting "2026-07" # src/steps/report.steps.ts:32
+
+          Embedding [image/png 11556 bytes]
+
+    ✔ Then the yearly bar chart should be visible                                                 # src/steps/report.steps.ts:102
+
+          Bars counted in chart: 6
+
+    ✔ And the bar chart should contain 6 bars                                                     # src/steps/report.steps.ts:109
+    ✔ And every bar should show non-zero principal and interest                                   # src/steps/report.steps.ts:116
+    ✔ When I hover over the bar for 2028                                                          # src/steps/report.steps.ts:131
+
+          Check      | Expected (independent) | Displayed
+          Principal  | 185750                 | 185750   
+          Interest   | 81183                  | 81183    
+          Total paid | 266933                 | 266933   
+          Balance    | 574078                 | 574078   
+
+
+          Embedding [image/png 71901 bytes]
+
+    ✔ Then the tooltip should show the 2028 figures from my independently calculated amortization # src/steps/report.steps.ts:135
+
+          Embedding [image/png 131520 bytes]
+
+
+  @ui @report
+  Scenario: Filtering the schedule to a single year shows its monthly instalments                   # features/ui/amortization-report.feature:32
+    ✔ Given I am on the amortization report page                                                    # src/steps/report.steps.ts:14
+    ✔ When I generate a report for a loan of 5000000 rupees at 7.5% for 15 years starting "2026-01" # src/steps/report.steps.ts:32
+    ✔ And I filter the schedule to show monthly instalments for 2027                                # src/steps/report.steps.ts:162
+    ✔ Then the schedule should list 12 monthly instalments for 2027                                 # src/steps/report.steps.ts:166
+    ✔ And every monthly row should match my independently calculated instalments                    # src/steps/report.steps.ts:173
+    ✔ And the bar for 2027 should be highlighted                                                    # src/steps/report.steps.ts:185
+
+          Embedding [image/png 163194 bytes]
+
+
+  @ui @report
+  Scenario: Loan details flow from the dashboard into the report                        # features/ui/amortization-report.feature:40
+    ✔ Given I am on the loan dashboard                                                  # src/steps/dashboard.steps.ts:11
+    ✔ When I calculate a loan of 5000000 rupees at 7.5% for 15 years                    # src/steps/dashboard.steps.ts:41
+    ✔ And I open the amortization report from the dashboard                             # src/steps/report.steps.ts:41
+    ✔ Then the report form should be prefilled with 5000000 rupees at 7.5% for 15 years # src/steps/report.steps.ts:46
+    ✔ And the report summary should match my independently calculated values            # src/steps/report.steps.ts:52
+
+          Embedding [image/png 185385 bytes]
+
+
+  @ui @report
+  Scenario Outline: Invalid report parameters are rejected — loan amount                        # features/ui/amortization-report.feature:55
+    ✔ Given I am on the amortization report page                                                # src/steps/report.steps.ts:14
+    ✔ When I generate a report for a loan of 0 rupees at 10% for 10 years starting "2026-01"    # src/steps/report.steps.ts:32
+    ✔ Then I should see the report error "Loan amount must be between 10,000 and 10,00,00,000." # src/steps/report.steps.ts:189
+    ✔ And no report should be shown until I generate one                                        # src/steps/report.steps.ts:28
+
+          Embedding [image/png 41634 bytes]
+
+
+  @ui @report
+  Scenario Outline: Invalid report parameters are rejected — interest rate                         # features/ui/amortization-report.feature:56
+    ✔ Given I am on the amortization report page                                                   # src/steps/report.steps.ts:14
+    ✔ When I generate a report for a loan of 2500000 rupees at 45% for 10 years starting "2026-01" # src/steps/report.steps.ts:32
+    ✔ Then I should see the report error "Interest rate must be between 0.1 and 30."               # src/steps/report.steps.ts:189
+    ✔ And no report should be shown until I generate one                                           # src/steps/report.steps.ts:28
+
+          Embedding [image/png 41574 bytes]
+
+
+  @ui @report
+  Scenario Outline: Invalid report parameters are rejected — tenure                                # features/ui/amortization-report.feature:57
+    ✔ Given I am on the amortization report page                                                   # src/steps/report.steps.ts:14
+    ✔ When I generate a report for a loan of 2500000 rupees at 10% for 31 years starting "2026-01" # src/steps/report.steps.ts:32
+    ✔ Then I should see the report error "Loan tenure must be between 1 and 30."                   # src/steps/report.steps.ts:189
+    ✔ And no report should be shown until I generate one                                           # src/steps/report.steps.ts:28
+
+          Embedding [image/png 41511 bytes]
+
+
+Feature: Loan dashboard
+
+  @ui @dashboard @smoke
+  Scenario: Dashboard loads with the default home loan figures                    # features/ui/dashboard.feature:14
+    ✔ Given I am on the loan dashboard                                            # src/steps/dashboard.steps.ts:11
+    ✔ Then the loan dashboard should be displayed                                 # src/steps/dashboard.steps.ts:16
+    ✔ And the "Home Loan" tab should be selected                                  # src/steps/dashboard.steps.ts:26
+    ✔ And the summary should show a monthly EMI, total interest and total payment # src/steps/dashboard.steps.ts:30
+
+          Loan: {"principal":2500000,"annualRatePct":10,"tenureYears":10}
+          
+          Check          | Expected (independent) | Displayed
+          Monthly EMI    | 33038                  | 33038    
+          Total interest | 1464522                | 1464522  
+          Total payment  | 3964522                | 3964522  
+
+    ✔ And the summary should match my own calculation for the values in the form  # src/steps/dashboard.steps.ts:72
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: EMI for a Home Loan of 2500000 at 10% over 10 years matches an independently computed value # features/ui/dashboard.feature:28
+    ✔ Given I am on the loan dashboard                                                                          # src/steps/dashboard.steps.ts:11
+    ✔ When I select the "Home Loan" tab                                                                         # src/steps/dashboard.steps.ts:36
+    ✔ And I calculate a loan of 2500000 rupees at 10% for 10 years                                              # src/steps/dashboard.steps.ts:41
+    ✔ Then the monthly EMI should match my independently calculated EMI                                         # src/steps/dashboard.steps.ts:77
+
+          Loan: {"principal":2500000,"annualRatePct":10,"tenureYears":10}
+          
+          Check          | Expected (independent) | Displayed
+          Monthly EMI    | 33038                  | 33038    
+          Total interest | 1464522                | 1464522  
+          Total payment  | 3964522                | 3964522  
+
+    ✔ And the total interest and total payment should match my independently calculated values                  # src/steps/dashboard.steps.ts:81
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: EMI for a Home Loan of 5000000 at 7.5% over 15 years matches an independently computed value # features/ui/dashboard.feature:29
+    ✔ Given I am on the loan dashboard                                                                           # src/steps/dashboard.steps.ts:11
+    ✔ When I select the "Home Loan" tab                                                                          # src/steps/dashboard.steps.ts:36
+    ✔ And I calculate a loan of 5000000 rupees at 7.5% for 15 years                                              # src/steps/dashboard.steps.ts:41
+    ✔ Then the monthly EMI should match my independently calculated EMI                                          # src/steps/dashboard.steps.ts:77
+
+          Loan: {"principal":5000000,"annualRatePct":7.5,"tenureYears":15}
+          
+          Check          | Expected (independent) | Displayed
+          Monthly EMI    | 46351                  | 46351    
+          Total interest | 3343111                | 3343111  
+          Total payment  | 8343111                | 8343111  
+
+    ✔ And the total interest and total payment should match my independently calculated values                   # src/steps/dashboard.steps.ts:81
+
+          Embedding [image/png 82980 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: EMI for a Personal Loan of 1000000 at 12% over 5 years matches an independently computed value # features/ui/dashboard.feature:30
+    ✔ Given I am on the loan dashboard                                                                             # src/steps/dashboard.steps.ts:11
+    ✔ When I select the "Personal Loan" tab                                                                        # src/steps/dashboard.steps.ts:36
+    ✔ And I calculate a loan of 1000000 rupees at 12% for 5 years                                                  # src/steps/dashboard.steps.ts:41
+    ✔ Then the monthly EMI should match my independently calculated EMI                                            # src/steps/dashboard.steps.ts:77
+
+          Loan: {"principal":1000000,"annualRatePct":12,"tenureYears":5}
+          
+          Check          | Expected (independent) | Displayed
+          Monthly EMI    | 22244                  | 22244    
+          Total interest | 334667                 | 334667   
+          Total payment  | 1334667                | 1334667  
+
+    ✔ And the total interest and total payment should match my independently calculated values                     # src/steps/dashboard.steps.ts:81
+
+          Embedding [image/png 83457 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: EMI for a Car Loan of 750000 at 8.75% over 7 years matches an independently computed value # features/ui/dashboard.feature:31
+    ✔ Given I am on the loan dashboard                                                                         # src/steps/dashboard.steps.ts:11
+    ✔ When I select the "Car Loan" tab                                                                         # src/steps/dashboard.steps.ts:36
+    ✔ And I calculate a loan of 750000 rupees at 8.75% for 7 years                                             # src/steps/dashboard.steps.ts:41
+    ✔ Then the monthly EMI should match my independently calculated EMI                                        # src/steps/dashboard.steps.ts:77
+
+          Loan: {"principal":750000,"annualRatePct":8.75,"tenureYears":7}
+          
+          Check          | Expected (independent) | Displayed
+          Monthly EMI    | 11972                  | 11972    
+          Total interest | 255637                 | 255637   
+          Total payment  | 1005637                | 1005637  
+
+    ✔ And the total interest and total payment should match my independently calculated values                 # src/steps/dashboard.steps.ts:81
+
+          Embedding [image/png 84252 bytes]
+
+
+  @ui @dashboard
+  Scenario: Moving the tenure slider recalculates the figures                    # features/ui/dashboard.feature:33
+    ✔ Given I am on the loan dashboard                                           # src/steps/dashboard.steps.ts:11
+    ✔ When I move the "Loan tenure" slider to 20                                 # src/steps/dashboard.steps.ts:46
+    ✔ Then the "Loan tenure" input should show 20                                # src/steps/dashboard.steps.ts:50
+
+          Loan: {"principal":2500000,"annualRatePct":10,"tenureYears":20}
+          
+          Check          | Expected (independent) | Displayed
+          Monthly EMI    | 24126                  | 24126    
+          Total interest | 3290130                | 3290130  
+          Total payment  | 5790130                | 5790130  
+
+    ✔ And the summary should match my own calculation for the values in the form # src/steps/dashboard.steps.ts:72
+
+          Embedding [image/png 85329 bytes]
+
+
+  @ui @dashboard @chart
+  Scenario: Payment breakdown pie chart renders valid, non-zero data                   # features/ui/dashboard.feature:39
+    ✔ Given I am on the loan dashboard                                                 # src/steps/dashboard.steps.ts:11
+    ✔ When I calculate a loan of 2500000 rupees at 10% for 10 years                    # src/steps/dashboard.steps.ts:41
+
+          Embedding [image/png 6825 bytes]
+
+    ✔ Then the payment breakdown pie chart should be visible                           # src/steps/dashboard.steps.ts:87
+
+          Extracted pie chart values
+          principal: value=2500000, drawn arc length=277.35
+          interest: value=1464522, drawn arc length=162.47
+
+    ✔ And both pie chart segments should have values greater than zero                 # src/steps/dashboard.steps.ts:99
+    ✔ And the principal segment should equal the loan amount                           # src/steps/dashboard.steps.ts:113
+    ✔ And the interest segment should equal my independently calculated total interest # src/steps/dashboard.steps.ts:117
+    ✔ And the pie chart legend should show the same values as the segments             # src/steps/dashboard.steps.ts:121
+
+          Embedding [image/png 85113 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: Out-of-range loan amount is rejected with a helpful message                          # features/ui/dashboard.feature:55
+    ✔ Given I am on the loan dashboard                                                                   # src/steps/dashboard.steps.ts:11
+    ✔ When I calculate a loan of 50000 rupees at 10% for 10 years                                        # src/steps/dashboard.steps.ts:41
+    ✔ Then I should see the validation message "Loan amount must be between ₹1,00,000 and ₹2,00,00,000." # src/steps/dashboard.steps.ts:130
+    ✔ And the summary figures should be cleared                                                          # src/steps/dashboard.steps.ts:134
+    ✔ And the pie chart should be replaced by an empty-state message                                     # src/steps/dashboard.steps.ts:140
+
+          Embedding [image/png 77343 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: Out-of-range interest rate is rejected with a helpful message          # features/ui/dashboard.feature:56
+    ✔ Given I am on the loan dashboard                                                     # src/steps/dashboard.steps.ts:11
+    ✔ When I calculate a loan of 2500000 rupees at 25% for 10 years                        # src/steps/dashboard.steps.ts:41
+    ✔ Then I should see the validation message "Interest rate must be between 5% and 20%." # src/steps/dashboard.steps.ts:130
+    ✔ And the summary figures should be cleared                                            # src/steps/dashboard.steps.ts:134
+    ✔ And the pie chart should be replaced by an empty-state message                       # src/steps/dashboard.steps.ts:140
+
+          Embedding [image/png 76083 bytes]
+
+
+  @ui @dashboard
+  Scenario Outline: Out-of-range tenure is rejected with a helpful message                        # features/ui/dashboard.feature:57
+    ✔ Given I am on the loan dashboard                                                            # src/steps/dashboard.steps.ts:11
+    ✔ When I calculate a loan of 2500000 rupees at 10% for 0 years                                # src/steps/dashboard.steps.ts:41
+    ✔ Then I should see the validation message "Loan tenure must be between 1 year and 30 years." # src/steps/dashboard.steps.ts:130
+    ✔ And the summary figures should be cleared                                                   # src/steps/dashboard.steps.ts:134
+    ✔ And the pie chart should be replaced by an empty-state message                              # src/steps/dashboard.steps.ts:140
+
+          Embedding [image/png 76302 bytes]
+
+
+1 hook (1 passed)
+34 scenarios (34 passed)
+233 steps (233 passed)
+0m 20.989s (0m 20.914s executing your code)

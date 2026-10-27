@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<testsuite name="Cucumber" time="16.204" tests="5" skipped="0" failures="5" errors="0" timestamp="2026-10-27T16:35:20.993Z">
+  <testcase classname="Legacy dashboard checks — intentionally broken locators (AI self-healing exercise)" name="Read the monthly EMI through an absolute XPath" time="3.58">
+    <failure type="TimeoutError2" message="locator.textContent: Timeout 3000ms exceeded.&#xA;Call log:&#xA;  - waiting for locator('xpath=/html/body/div[1]/main/div[2]/div[1]/span')&#xA;"><![CDATA[locator.textContent: Timeout 3000ms exceeded.
+Call log:
+  - waiting for locator('xpath=/html/body/div[1]/main/div[2]/div[1]/span')
+
+    at LegacyDashboardPage.readEmiText (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:83:33)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:12:37)]]></failure>
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+Then the legacy EMI value should show a rupee amount........................failed]]></system-out>
+  </testcase>
+  <testcase classname="Legacy dashboard checks — intentionally broken locators (AI self-healing exercise)" name="Recalculate through a removed element id" time="3.147">
+    <failure type="TimeoutError2" message="locator.click: Timeout 3000ms exceeded.&#xA;Call log:&#xA;  - waiting for locator('#btn-calculate')&#xA;"><![CDATA[locator.click: Timeout 3000ms exceeded.
+Call log:
+  - waiting for locator('#btn-calculate')
+
+    at LegacyDashboardPage.recalculate (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:91:32)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:16:30)]]></failure>
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I recalculate using the legacy Calculate button........................failed]]></system-out>
+  </testcase>
+  <testcase classname="Legacy dashboard checks — intentionally broken locators (AI self-healing exercise)" name="Read the total payment through a positional CSS chain" time="3.174">
+    <failure type="TimeoutError2" message="locator.textContent: Timeout 3000ms exceeded.&#xA;Call log:&#xA;  - waiting for locator('div.summary-cards > div:nth-child(3) > span.value')&#xA;"><![CDATA[locator.textContent: Timeout 3000ms exceeded.
+Call log:
+  - waiting for locator('div.summary-cards > div:nth-child(3) > span.value')
+
+    at LegacyDashboardPage.readTotalPaymentText (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:87:42)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:20:37)]]></failure>
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+Then the legacy total payment value should show a rupee amount..............failed]]></system-out>
+  </testcase>
+  <testcase classname="Legacy dashboard checks — intentionally broken locators (AI self-healing exercise)" name="Enter the loan amount through a renamed form field" time="3.138">
+    <failure type="TimeoutError2" message="locator.fill: Timeout 3000ms exceeded.&#xA;Call log:&#xA;  - waiting for locator('input[name=&quot;principal&quot;]')&#xA;"><![CDATA[locator.fill: Timeout 3000ms exceeded.
+Call log:
+  - waiting for locator('input[name="principal"]')
+
+    at LegacyDashboardPage.enterLoanAmount (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:95:32)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:24:30)]]></failure>
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I enter a loan amount of 3000000 using the legacy loan amount field....failed]]></system-out>
+  </testcase>
+  <testcase classname="Legacy dashboard checks — intentionally broken locators (AI self-healing exercise)" name="Switch loan type through outdated tab copy" time="3.14">
+    <failure type="TimeoutError2" message="locator.click: Timeout 3000ms exceeded.&#xA;Call log:&#xA;  - waiting for locator('text=&quot;Home Loans&quot;')&#xA;"><![CDATA[locator.click: Timeout 3000ms exceeded.
+Call log:
+  - waiting for locator('text="Home Loans"')
+
+    at LegacyDashboardPage.selectHomeLoan (/Users/ankitsingh/QA-Automation-Assessment/src/pages/legacy/LegacyDashboardPage.ts:99:28)
+    at TestWorld.<anonymous> (/Users/ankitsingh/QA-Automation-Assessment/src/steps/legacy-locators.steps.ts:28:30)]]></failure>
+    <system-out><![CDATA[Given I am on the loan dashboard............................................passed
+When I select the home loan tab using the legacy tab locator................failed]]></system-out>
+  </testcase>
+</testsuite>
