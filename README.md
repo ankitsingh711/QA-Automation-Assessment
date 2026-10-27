@@ -187,26 +187,31 @@ The full write-up is in [`docs/SELF_HEALING.md`](docs/SELF_HEALING.md). In short
 
 ## Claude Code reflection
 
-I used Claude Code throughout as a pair programmer, not just a scaffolder.
+I'll be upfront: I leaned on Claude Code heavily for this one. I described what I wanted in plain English (a small app I control, Cucumber on top of Playwright, page objects, config in env files, expected values computed separately from the app) and it scaffolded most of it. My job was mostly steering, and checking whether what came back was actually right. Honestly, the checking turned out to be the more interesting part.
 
-**How I used it**
-- I described the framework in plain language (Cucumber + Playwright, POM, env config, independent oracle, evidence-first reporting) and let it scaffold the app, the page objects, the steps and the config.
-- I asked it to probe JSONPlaceholder with `curl` *before* writing assertions. That revealed the API accepts everything and returns 500 with a stack trace for malformed JSON, which shaped the regression vs `@known-issue` split.
-- I used it for unfamiliar territory: the gaps-and-islands pattern for the streak query, Playwright's `ariaSnapshot()` for the healer, and the Anthropic SDK's structured-output API.
+**What worked well**
 
-**What worked**
-- Speed. A working app, framework, SQL and POC in one session, with a single `npm run results` that regenerates all the evidence.
-- Letting the tests drive. The suite caught two genuine app bugs on its first run:
-  1. `svgElement.hidden = true` is a silent no-op, because `hidden` is an `HTMLElement` property and not an SVG one, so the pie chart stayed visible on invalid input.
-  2. `.report-output { display: grid }` overrode the `hidden` attribute, so an empty report section always showed.
-- Asking it to verify against real sources (installed SDK type definitions, the actual API) instead of answering from memory.
+The speed was real. Getting a working app, a test framework, the SQL, the self-healing POC and a single `npm run results` command that regenerates every report into one session would have taken me a lot longer by hand.
 
-**Where it was wrong, and how it was caught**
-- **A plausible but wrong self-heal.** The healer mapped *Total payment* onto the *Total interest* card, and every validation gate passed. I only caught it by reading the generated patch. That led to the last-known-label gate and margin-based confidence.
-- **Test data with a logic error.** It wrote a SQL seed case labelled "return happened before the original". That can't exist, because the earlier transfer *is* the original, and the query correctly matched it. The query was right and the data was wrong. I replaced it with a duplicate-payment case.
-- **Subtle correctness issues:** `0.10 * amount` float comparison at the inclusive 10% boundary (rewritten as integer maths); axis labels rounding ₹1.25L to "₹1.3L"; screenshot files from Scenario Outline rows overwriting each other.
-- **Accessibility:** it first gave the bar-chart SVG `role="img"`, which makes the child bars presentational to screen readers. Playwright still found them, so no test would have failed. I changed it to `role="figure"`.
-- **Tooling drift:** npm's latest TypeScript is 7 (the native compiler), which `ts-node` can't drive, so I pinned 5.9.
-- **What I couldn't verify:** the Claude provider in the healer type-checks against the SDK but wasn't run live, because there was no API key in this environment. The offline heuristic and the validation gates are what's demonstrated.
+What helped most was making it check against something real instead of trusting what it "knew":
 
-**Takeaway:** the AI was fastest where there's a ground truth to check against: the tests, the type checker, a `curl` response, or a screenshot. The mistakes that mattered were the confident ones that passed all automated checks, the wrong heal and the mislabelled seed row. Those needed a human reading the output, which is the same reason self-healed locators should land as a reviewed PR, never as an automatic commit.
+- Before writing any API assertions, we hit JSONPlaceholder with `curl` to see what it actually does. It accepts basically anything with a 201, and malformed JSON gives back a 500 with a stack trace. That changed how I structured the API tests: things that must hold (no 5xx, data comes back intact) went into the regression run, and the validation checks the brief asks for went into a separate `@known-issue` profile. Those fail on purpose and are written up as defects.
+- For the Anthropic SDK and the tooling, it read the installed type definitions instead of going from memory. That mattered. For example, the newest TypeScript on npm (7.x) doesn't work with `ts-node`, so it had to be pinned to 5.9.
+- The tests earned their keep on the first run. Seven scenarios failed, and they were two real bugs in the app, not in the tests. `svg.hidden = true` silently does nothing because `hidden` only exists on HTML elements, so the pie chart never hid on bad input. And a `display: grid` rule was overriding the `hidden` attribute, so an empty report section always showed.
+
+It was also genuinely useful for things I don't write every day, like the gaps-and-islands trick for the IPL streak query and Playwright's `ariaSnapshot()`.
+
+**Where it got things wrong**
+
+This is the part I'd want anyone using these tools to take away. The mistakes that mattered weren't the ones that crashed. They were the ones that looked fine.
+
+- **The self-healer "fixed" a locator onto the wrong element.** It mapped *Total payment* onto the *Total interest* card. It was unique, visible, showed a rupee amount, and passed every check the POC had at that point. The old test would even have gone green, because it only checked that the element showed a rupee amount. Nothing automated flagged it; it only showed up when the generated patch was actually read. That's why the healer now checks the card label the element sat under when the test last passed, and why it treats a tie between two candidates as "ask a human" rather than picking one.
+- **Test data with a logic error.** One SQL seed case was labelled "the return happened before the original transfer". That can't exist, because whichever transfer comes first *is* the original. The query was right and the data was wrong, so the case was swapped for a duplicate payment in the same direction.
+- **Small but real bugs:** a `0.10 * amount` float comparison sitting exactly on the inclusive 10% boundary (changed to integer maths), chart axis labels rounding ₹1.25L up to "₹1.3L", and Scenario Outline rows overwriting each other's screenshots.
+- **An accessibility slip no test would catch.** The bar chart SVG first got `role="img"`, which hides the bars from screen readers. Playwright still found them, so every test passed. It was changed to `role="figure"`.
+
+One thing I couldn't verify: the Claude-backed provider in the healer compiles against the SDK, but I didn't have an API key, so it never ran live. What's demonstrated is the offline fallback plus the validation gates.
+
+**What I'd tell someone else**
+
+AI was fastest wherever there was something solid to check it against: a test, the type checker, a real HTTP response, a screenshot. Where it was confidently wrong, the automated checks usually agreed with it, so someone had to read the output properly. That's also my view on self-healing locators in general. They're useful, but a healed locator should land as a reviewed pull request, never as an automatic commit.
