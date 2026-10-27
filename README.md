@@ -1,5 +1,7 @@
 # Streamhub QA Automation Assessment — Section A
 
+[![tests](https://github.com/ankitsingh711/QA-Automation-Assessment/actions/workflows/tests.yml/badge.svg)](https://github.com/ankitsingh711/QA-Automation-Assessment/actions/workflows/tests.yml)
+
 A small loan-calculator web app (**LoanLens**) and a Playwright + Cucumber framework that tests it. The repo also covers API boundary tests against JSONPlaceholder, the two SQL scenarios, and an AI self-healing locator exercise with a working proof of concept.
 
 | Part | What's here | Where |
@@ -25,7 +27,13 @@ A small loan-calculator web app (**LoanLens**) and a Playwright + Cucumber frame
 | Self-healing POC (`npm run heal`) | heal all | 5 / 5 healed; patch verified (5 / 5 pass when applied) |
 | SQL (`npm run sql`) | match designed results | 3 / 3 queries match |
 
-Full table with durations and links: [`reports/SUMMARY.md`](reports/SUMMARY.md). The Cucumber HTML reports (`reports/*/cucumber-report.html`) are self-contained, so download one and open it in a browser. They embed a screenshot per UI scenario and the expected-vs-displayed tables each step attaches.
+**View the HTML reports in your browser** (served by GitHub Pages from the committed files):
+
+- [Regression report — UI + API, 34 / 34 passed](https://ankitsingh711.github.io/QA-Automation-Assessment/reports/regression/cucumber-report.html)
+- [API known-issues report — defects DEF-001 to DEF-003](https://ankitsingh711.github.io/QA-Automation-Assessment/reports/known-issues/cucumber-report.html)
+- [Self-healing report — 5 intentionally broken locators](https://ankitsingh711.github.io/QA-Automation-Assessment/reports/self-healing/cucumber-report.html)
+
+Each report embeds a screenshot per UI scenario and the expected-vs-displayed tables each step attaches. The full table with durations and console logs is in [`reports/SUMMARY.md`](reports/SUMMARY.md). Every push also reruns the regression suite in [GitHub Actions](https://github.com/ankitsingh711/QA-Automation-Assessment/actions/workflows/tests.yml).
 
 | Dashboard + pie chart | Report + bar chart tooltip |
 |---|---|
